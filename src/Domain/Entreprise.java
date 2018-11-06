@@ -1,3 +1,5 @@
+package Domain;
+
 public class Entreprise {
 
     private string name;

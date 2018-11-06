@@ -1,3 +1,5 @@
+package Domain;
+
 public enum Roles {
     PDG("PDG"),
     Chef("Chef de projet"),
