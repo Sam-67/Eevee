@@ -1,15 +1,17 @@
 package Domain;
 
+import java.util.Date;
+
 public class Projects {
 
-    private  string name;
-    private  Date dateStart;
+    private  String name;
+    private Date dateStart;
     private  Date dateEnd;
     private int nbRemainingDevDay;
     private int nbRemainingManagementDay;
     private float efficiency;
 
-    public Projects(string name, Date dateStart, Date dateEnd, int nbRemainingDevDay, int nbRemainingManagementDay, float efficiency) {
+    public Projects(String name, Date dateStart, Date dateEnd, int nbRemainingDevDay, int nbRemainingManagementDay, float efficiency) {
         this.name = name;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
@@ -22,11 +24,11 @@ public class Projects {
 
     }
 
-    public string getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(string name) {
+    public void setName(String name) {
         this.name = name;
     }
 

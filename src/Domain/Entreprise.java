@@ -2,21 +2,21 @@ package Domain;
 
 public class Entreprise {
 
-    private string name;
+    private String name;
 
     public Entreprise() {
 
     }
 
-    public Entreprise(string name) {
+    public Entreprise(String name) {
         this.name = name;
     }
 
-    public void setName(string name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public string getNAme() {
+    public String getNAme() {
         return name;
     }
 }
