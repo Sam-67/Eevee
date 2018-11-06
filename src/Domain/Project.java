@@ -2,7 +2,7 @@ package Domain;
 
 import java.util.Date;
 
-public class Projects {
+public class Project {
 
     private  String name;
     private Date dateStart;
@@ -11,7 +11,7 @@ public class Projects {
     private int nbRemainingManagementDay;
     private float efficiency;
 
-    public Projects(String name, Date dateStart, Date dateEnd, int nbRemainingDevDay, int nbRemainingManagementDay, float efficiency) {
+    public Project(String name, Date dateStart, Date dateEnd, int nbRemainingDevDay, int nbRemainingManagementDay, float efficiency) {
         this.name = name;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
@@ -20,7 +20,7 @@ public class Projects {
         this.efficiency = efficiency;
     }
 
-    public Projects(){
+    public Project(){
 
     }
 
