@@ -2,17 +2,17 @@ package Domain;
 
 import java.util.Date;
 
-public class Employe {
+public class Employee {
 
     private String lastName;
     private String firsName;
     private Date dateReadyToWork;
 
-    public Employe(){
+    public Employee(){
 
     }
 
-    public Employe(String lastName, String firsName, Date dateReadyToWork) {
+    public Employee(String lastName, String firsName, Date dateReadyToWork) {
         this.lastName = lastName;
         this.firsName = firsName;
         this.dateReadyToWork = dateReadyToWork;
