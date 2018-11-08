@@ -45,12 +45,16 @@ public class Application {
             }
 
         }
+
+        System.out.println("A bientot !");
+        return;
     }
 
 
     public static void showPlanningMenu() {
         System.out.println("1 : Vérifier le planning de tout les projet ?");
         System.out.println("2 : Un seul projet ");
+        System.out.println("9 : retour ");
         System.out.println("0 :  Quitter");
 
         Scanner sc = new Scanner(System.in);
@@ -116,7 +120,7 @@ public class Application {
         System.out.println("2 : Projet 2");
         System.out.println("3 : Projet 3");
         System.out.println("9 : Retour");
-        System.out.println("9 : Retour");
+        System.out.println("0 : quitter");
 
         Scanner sc = new Scanner(System.in);
         int choix = sc.nextInt();
@@ -138,14 +142,19 @@ public class Application {
             else{
             System.out.println("Veuillez une des action proposée !");
             chooseProject(action);
-        }
+            }
         }
         else if(choix == 9)
         {
-            return;
+            if(action == "planning"){
+                showPlanningMenu();
+            }
+            else if(action == "efficience"){
+                showModifyEfficiencyMenu();
+            }
         }
         else if(choix == 0){
-            System.exit(1);
+            quit();
         }
 
     }
@@ -157,10 +166,20 @@ public class Application {
         String name = sc.next();
 
         System.out.println("Entrez la date de début du nouveau projet");
-        Date dateDebut = askDate();
+        Date dateDebut = askDate("debut");
 
         System.out.println("Entrez la date de fin du nouveau projet");
-        Date dateFin = askDate();
+        Date dateFin = askDate("fin");
+
+        while(dateFin.compareTo(dateDebut)  < 0){
+            System.out.println("La date de debut dois être inférieur a la date de fin!");
+
+            System.out.println("Entrez la date de début du nouveau projet");
+            dateDebut = askDate("debut");
+
+            System.out.println("Entrez la date de fin du nouveau projet");
+            dateFin = askDate("fin");
+        }
 
         int nbJourDeDev = 10; // toDo : calcul
 
@@ -182,7 +201,7 @@ public class Application {
     }
 
 
-    public static Date askDate() {
+    public static Date askDate(String parameter) {
         Boolean isNotOk = true;
         Scanner sc = new Scanner(System.in);
         int day = 0;
@@ -194,6 +213,7 @@ public class Application {
             day = sc.nextInt();
             isNotOk = (checkDate(day, "day")) ? false : true;
         }
+        isNotOk = true;
 
         while(isNotOk){
             System.out.println("Entrez un mois valide");
@@ -201,10 +221,12 @@ public class Application {
             isNotOk = (checkDate(month, "month")) ? false : true;
         }
 
+        isNotOk = true;
+
         while(isNotOk){
             System.out.println("Entrez une année valide");
             year = sc.nextInt();
-            isNotOk = (checkDate(year, "year")) ? false : true;
+            isNotOk = (checkDate(year, "year"+parameter)) ? false : true;
         }
 
         Date date = new Date(day,month,year);
@@ -227,8 +249,11 @@ public class Application {
             case "month" :
                 isOk = (nb != 0 && nb < 13) ? true : false;
                 break;
-            case "year" :
-                isOk = (nb != 0 && nb <= new Date().getYear()) ? true : false;
+            case "yeardebut" :
+                isOk = (nb != 0 && nb < 2019) ? true : false;
+                break;
+            case "yearfin" :
+                isOk = (nb != 0 && nb >= 2018) ? true : false;
                 break;
         }
 
