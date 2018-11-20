@@ -9,8 +9,21 @@ public class ProjetPlanningController {
         }
         return instance;
     }
-
-    public void getProjetReport(){
-        System.out.println("Ce projet va être réalisé avec succès, bravo !");
+    
+    public int getNbDaysbetween() {
+    	return 0; 
     }
+    
+    public int getNbDev(int nbDevDays, int nbDev) {
+    	return (nbDevDays/nbDev);
+    }
+    
+    public int getNbProjetManagement(int nbProjectManagementDays, int nbProjectManager) {
+    	return (nbProjectManagementDays/nbProjectManager);
+    }
+    
+    
+    
+    
+    
 }
