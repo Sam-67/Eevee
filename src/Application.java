@@ -200,7 +200,6 @@ public class Application {
 
     }
 
-
     public static Date askDate(String parameter) {
         Boolean isNotOk = true;
         Scanner sc = new Scanner(System.in);
