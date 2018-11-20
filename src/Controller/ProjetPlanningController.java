@@ -10,6 +10,10 @@ public class ProjetPlanningController {
         return instance;
     }
     
+    public int getNbDaysbetween() {
+    	return 0; 
+    }
+    
     public int getNbDev(int nbDevDays, int nbDev) {
     	return (nbDevDays/nbDev);
     }
