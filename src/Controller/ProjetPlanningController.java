@@ -9,10 +9,17 @@ public class ProjetPlanningController {
         }
         return instance;
     }
-
-    public void getProjetReport(){
-        //...
+    
+    public int getNbDev(int nbDevDays, int nbDev) {
+    	return (nbDevDays/nbDev);
     }
+    
+    public int getNbProjetManagement(int nbProjectManagementDays, int nbProjectManager) {
+    	return (nbProjectManagementDays/nbProjectManager);
+    }
+    
+    
+    
     
     
 }
