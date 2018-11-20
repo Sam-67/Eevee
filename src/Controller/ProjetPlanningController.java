@@ -1,11 +1,7 @@
 package Controller;
 
-import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.Month;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
 
 public class ProjetPlanningController {
@@ -28,8 +24,6 @@ public class ProjetPlanningController {
     	int numberOfMounthBetween = (int) ChronoUnit.MONTHS.between(currentTime, endDate);
     	return numberOfDaysBetween - (numberOfMounthBetween * 2);
     }
-    
- 
     
     public int getNbDev(int nbDevDays, int nbDev) {
     	return (nbDevDays/nbDev);
