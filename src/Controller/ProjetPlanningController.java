@@ -1,11 +1,6 @@
 package Controller;
 
-import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.Month;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
 
 public class ProjetPlanningController {
@@ -31,16 +26,10 @@ public class ProjetPlanningController {
     	// 5. If the workload days are superior then deadlines days : ADD ANOTHER DEV OR PROJECT MANAGER
     	
     }
-    
-    public int getNbDaysbetween() {
-    	System.out.println(getWorkDaysUntil(LocalDateTime.of(2018, Month.DECEMBER, 25, 13, 37, 0)));
-    	return 0; 
-    }
         
-    public int getWorkDaysUntil(LocalDateTime endDate) {
-    	LocalDateTime currentTime = LocalDateTime.now();
-    	int numberOfDaysBetween = (int) ChronoUnit.DAYS.between(currentTime, endDate);
-    	int numberOfMounthBetween = (int) ChronoUnit.MONTHS.between(currentTime, endDate);
+    public int getWorkDaysUntil(LocalDateTime startDate, LocalDateTime endDate) {
+    	int numberOfDaysBetween = (int) ChronoUnit.DAYS.between(startDate, endDate);
+    	int numberOfMounthBetween = (int) ChronoUnit.MONTHS.between(startDate, endDate);
     	return numberOfDaysBetween - (numberOfMounthBetween * 2);
     }
     
