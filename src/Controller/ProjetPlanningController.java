@@ -11,6 +11,8 @@ public class ProjetPlanningController {
     }
 
     public void getProjetReport(){
-        System.out.println("Ce projet va être réalisé avec succès, bravo !");
+        //...
     }
+    
+    
 }
