@@ -15,7 +15,22 @@ public class ProjetPlanningController {
     }
     
     public void getProjetReport() {
+    	// 1. Calculate number of days between two deadlines
+    	
+    	// 2. Calculate number of developpment days per developpers 
+    	
+    	// 3. Compare the deadlines days and the workload days
+    	
+    	// 4. If the deadlines days are superior than workload days : PROJECT IS OK  
+    	
+    	
+    	// 5. If the workload days are superior then deadlines days : ADD ANOTHER DEV OR PROJECT MANAGER
+    	
+    }
+    
+    public int getNbDaysbetween() {
     	System.out.println(getWorkDaysUntil(LocalDateTime.of(2018, Month.DECEMBER, 25, 13, 37, 0)));
+    	return 0; 
     }
         
     public int getWorkDaysUntil(LocalDateTime endDate) {
@@ -33,4 +48,15 @@ public class ProjetPlanningController {
     	return (nbProjectManagementDays/nbProjectManager);
     }
     
+    public int compare(int deadlines_date, int workload_date) {
+    	if(deadlines_date > workload_date) {
+    		return 1;
+    	} else {
+    		return 0;
+    	}
+    }
+    
+    public void compareProjects() {
+    	
+    }
 }
