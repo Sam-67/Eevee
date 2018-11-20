@@ -52,15 +52,13 @@ public class ProjetPlanningController {
     	return (nbProjectManagementDays/nbProjectManager);
     }
     
-    public int compare(int deadlines_date, int workload_date) {
+    // Compare the deadlines days and the workload days
+    public int compareDeadlinesWorkload(int deadlines_date, int workload_date) {
     	if(deadlines_date > workload_date) {
     		return 1;
     	} else {
     		return 0;
     	}
     }
-    
-    public void compareProjects() {
-    	
-    }
+
 }
