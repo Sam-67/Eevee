@@ -1,5 +1,13 @@
 package Controller;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Month;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
+
 public class ProjetPlanningController {
     public static ProjetPlanningController instance;
 
@@ -25,7 +33,15 @@ public class ProjetPlanningController {
     }
     
     public int getNbDaysbetween() {
+    	System.out.println(getWorkDaysUntil(LocalDateTime.of(2018, Month.DECEMBER, 25, 13, 37, 0)));
     	return 0; 
+    }
+        
+    public int getWorkDaysUntil(LocalDateTime endDate) {
+    	LocalDateTime currentTime = LocalDateTime.now();
+    	int numberOfDaysBetween = (int) ChronoUnit.DAYS.between(currentTime, endDate);
+    	int numberOfMounthBetween = (int) ChronoUnit.MONTHS.between(currentTime, endDate);
+    	return numberOfDaysBetween - (numberOfMounthBetween * 2);
     }
     
     public int getNbDev(int nbDevDays, int nbDev) {
@@ -47,9 +63,4 @@ public class ProjetPlanningController {
     public void compareProjects() {
     	
     }
-    
-    
-    
-    
-    
 }
