@@ -1,17 +1,17 @@
 package Domain;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Project {
 
     private  String name;
-    private Date dateStart;
-    private  Date dateEnd;
+    private LocalDateTime dateStart;
+    private LocalDateTime dateEnd;
     private int nbRemainingDevDay;
     private int nbRemainingManagementDay;
     private float efficiency;
 
-    public Project(String name, Date dateStart, Date dateEnd, int nbRemainingDevDay, int nbRemainingManagementDay, float efficiency) {
+    public Project(String name, LocalDateTime dateStart, LocalDateTime dateEnd, int nbRemainingDevDay, int nbRemainingManagementDay, float efficiency) {
         this.name = name;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
@@ -32,19 +32,19 @@ public class Project {
         this.name = name;
     }
 
-    public Date getDateStart() {
+    public LocalDateTime getDateStart() {
         return dateStart;
     }
 
-    public void setDateStart(Date dateStart) {
+    public void setDateStart(LocalDateTime dateStart) {
         this.dateStart = dateStart;
     }
 
-    public Date getDateEnd() {
+    public LocalDateTime getDateEnd() {
         return dateEnd;
     }
 
-    public void setDateEnd(Date dateEnd) {
+    public void setDateEnd(LocalDateTime dateEnd) {
         this.dateEnd = dateEnd;
     }
 
