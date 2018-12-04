@@ -1,0 +1,5 @@
+# nom;dateDebut;dateFin;nbJourRestantDev;nbJourRestantGestion;efficience
+Airbus;01/06/2018;01/12/2018;150;40;1
+Ninetendo;01/06/2018;01/09/2018;75;25;1
+HTC VR;01/06/2018;01/01/2019;150;45;1
+Soni;01/06/2018;01/01/2019;300;80;1

@@ -1,4 +1,5 @@
 import Controller.ProjetPlanningController;
+import Domain.DataBase;
 import Domain.Project;
 
 import java.text.SimpleDateFormat;
@@ -11,6 +12,8 @@ public class Application {
         planningController.getProjetReport();
         
         System.out.println("Bienvenue dans le mini ERP EEVEE. \n");
+        DataBase db = new DataBase();
+        db.init();
         
         Scanner sc = new Scanner(System.in);
         int choix = 1;
