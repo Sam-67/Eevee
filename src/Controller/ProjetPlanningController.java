@@ -2,9 +2,11 @@ package Controller;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
 
 import Domain.Entreprise;
 import Domain.Project;
+import Domain.RemainingDaysType;
 
 public class ProjetPlanningController {
     public static ProjetPlanningController instance;
@@ -16,22 +18,21 @@ public class ProjetPlanningController {
         return instance;
     }
     
-    public void getProjetReport(Entreprise entreprise, Project project) {
-    	
+    public HashMap<RemainingDaysType, Integer> getProjectReport(Entreprise entreprise, Project project) {
+    	HashMap<RemainingDaysType, Integer> remainingDays = new HashMap<RemainingDaysType, Integer>();
     	int workDaysUntil = getWorkDaysUntil(project.getDateStart(), project.getDateEnd());
-    	int workloadPerDevelopmentInDays = getWorkloadPerDevelopmentInDays(project.getNbRemainingDevDay(), entreprise.getNumbersOfEmployees());
+    	int workloadPerDevelopmentInDays = getWorkloadPerDevelopmentInDays(project.getNbRemainingDevDay(), entreprise.getNumbersOfDeveloppers());
+    	int workloadPerProjectManagerInDays = getWorkloadPerProjectManagerInDays(project.getNbRemainingManagementDay(), entreprise.getNumbersOfManagers());
     	
-    	int workloadPerProjectManagerInDays = getWorkloadPerProjectManagerInDays(project.getNbRemainingManagementDay(), entreprise.getNumbersOfEmployees());
+    	if(workloadPerDevelopmentInDays < workDaysUntil) {
+    		remainingDays.put(RemainingDaysType.DEVELOPMENT, workloadPerDevelopmentInDays - workDaysUntil);
+    	} else if(workloadPerProjectManagerInDays < workDaysUntil) {
+    		remainingDays.put(RemainingDaysType.PROJECT_MANAGEMENT, workloadPerProjectManagerInDays - workDaysUntil);
+    	} else {
+    		remainingDays.put(RemainingDaysType.ACHIEVABLE_PROJECT, 0);
+    	}
     	
-    	// 3. Compare the deadlines days and the workload days
-    	if( )
-    	
-    	
-    	// 4. If the deadlines days are superior than workload days : PROJECT IS OK  
-    	
-    	
-    	// 5. If the workload days are superior then deadlines days : ADD ANOTHER DEV OR PROJECT MANAGER
-    	
+    	return remainingDays; 	
     }
       
     public int getWorkDaysUntil(LocalDateTime startDate, LocalDateTime endDate) {
