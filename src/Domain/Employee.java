@@ -1,23 +1,18 @@
 package Domain;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Employee {
 
     private String lastName;
     private String firsName;
-    private Date dateReadyToWork;
+    private LocalDateTime dateReadyToWork;
 
-    public Employee(){
-
-    }
-
-    public Employee(String lastName, String firsName, Date dateReadyToWork) {
+    public Employee(String lastName, String firsName, LocalDateTime dateReadyToWork) {
         this.lastName = lastName;
         this.firsName = firsName;
         this.dateReadyToWork = dateReadyToWork;
     }
-
 
     public String getLastName() {
         return lastName;
@@ -35,14 +30,12 @@ public class Employee {
         this.firsName = firsName;
     }
 
-    public Date getDateReadyToWork() {
+    public LocalDateTime getDateReadyToWork() {
         return dateReadyToWork;
     }
 
-    public void setDateReadyToWork(Date dateReadyToWork) {
+    public void setDateReadyToWork(LocalDateTime dateReadyToWork) {
         this.dateReadyToWork = dateReadyToWork;
     }
-
-
 
 }

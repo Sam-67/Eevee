@@ -3,6 +3,7 @@ package Controller;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+import Domain.Entreprise;
 import Domain.Project;
 
 public class ProjetPlanningController {
@@ -15,14 +16,16 @@ public class ProjetPlanningController {
         return instance;
     }
     
-    public void getProjetReport(Project project) {
+    public void getProjetReport(Entreprise entreprise, Project project) {
     	
-    	// 1. Calculate number of days between two deadlines
     	int workDaysUntil = getWorkDaysUntil(project.getDateStart(), project.getDateEnd());
+    	int workloadPerDevelopmentInDays = getWorkloadPerDevelopmentInDays(project.getNbRemainingDevDay(), entreprise.getNumbersOfEmployees());
     	
-    	// 2. Calculate number of developpment days per developpers 
-    	//int workloadPerDevelopmentInDays = getWorkloadPerDevelopmentInDays(project.getNbRemainingDevDay(), int nbDev);
+    	int workloadPerProjectManagerInDays = getWorkloadPerProjectManagerInDays(project.getNbRemainingManagementDay(), entreprise.getNumbersOfEmployees());
+    	
     	// 3. Compare the deadlines days and the workload days
+    	if( )
+    	
     	
     	// 4. If the deadlines days are superior than workload days : PROJECT IS OK  
     	
