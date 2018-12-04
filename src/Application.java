@@ -202,7 +202,6 @@ public class Application {
         sc.close(); 
     }
 
-
     public static Date askDate(String parameter) {
         Boolean isNotOk = true;
         Scanner sc = new Scanner(System.in);
