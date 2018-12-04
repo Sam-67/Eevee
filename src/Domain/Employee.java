@@ -6,11 +6,13 @@ public class Employee {
 
     private String lastName;
     private String firsName;
+    private EmployeRole role;
     private LocalDateTime dateReadyToWork;
 
-    public Employee(String lastName, String firsName, LocalDateTime dateReadyToWork) {
+    public Employee(String lastName, String firsName, EmployeRole role, LocalDateTime dateReadyToWork) {
         this.lastName = lastName;
         this.firsName = firsName;
+        this.role = role;
         this.dateReadyToWork = dateReadyToWork;
     }
 

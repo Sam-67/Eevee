@@ -2,6 +2,8 @@ package Domain;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class DataBase {
@@ -275,9 +277,25 @@ public class DataBase {
                 if(ligne.contains("#"))
                     continue;
                 String[] param = ligne.split(";");
-                SimpleDateFormat format = new SimpleDateFormat("dd/MMM/yyyy");
-                Date date = format.parse(param[2]);
-                Employee emp = new Employee(param[0], param[1], date);
+                DateTimeFormatter  format = DateTimeFormatter.ofPattern("dd/MMM/yyyy");
+                LocalDateTime date = LocalDateTime.parse(param[2]);
+                EmployeRole role = null;
+                switch(param[3]) {
+	                case "CEO":
+	                	role = EmployeRole.CEO;
+	                break;
+	                case "PROJECT_MANAGER":
+	                	role = EmployeRole.PROJECT_MANAGER;
+	                break;
+	                case "DEVELLOPER":
+	                	role = EmployeRole.DEVELLOPER;
+	                break;
+	                case "TECHNICAL_MANAGER":
+	                	role = EmployeRole.TECHNICAL_MANAGER;
+	                break;
+                }             
+                
+                Employee emp = new Employee(param[0], param[1], role, date);
                 EmployeeList.add(emp);
             }
             buff.close();
@@ -296,9 +314,9 @@ public class DataBase {
                 if(ligne.contains("#"))
                     continue;
                 String[] param = ligne.split(";");
-                SimpleDateFormat format = new SimpleDateFormat("dd/MMM/yyyy");
-                Date datedeb = format.parse(param[1]);
-                Date datefin = format.parse(param[2]);
+                DateTimeFormatter  format = DateTimeFormatter.ofPattern("dd/MMM/yyyy");
+                LocalDateTime datedeb = LocalDateTime.parse(param[1]);
+                LocalDateTime datefin = LocalDateTime.parse(param[2]);
                 Project p = new Project(param[0], datedeb, datefin, Integer.parseInt(param[3]), Integer.parseInt(param[4]), Float.parseFloat(param[3]));
                 ProjectList.add(p);
             }

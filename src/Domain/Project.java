@@ -1,20 +1,21 @@
 package Domain;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Project {
 
-    private  String name;
+    private String name;
     private LocalDateTime dateStart;
     private LocalDateTime dateEnd;
     private int nbRemainingDevDay;
     private int nbRemainingManagementDay;
     private float efficiency;
 
-    public Project(String name, LocalDateTime dateStart, LocalDateTime dateEnd, int nbRemainingDevDay, int nbRemainingManagementDay, float efficiency) {
+    public Project(String name, LocalDateTime datedeb, LocalDateTime datefin, int nbRemainingDevDay, int nbRemainingManagementDay, float efficiency) {
         this.name = name;
-        this.dateStart = dateStart;
-        this.dateEnd = dateEnd;
+        this.dateStart = datedeb;
+        this.dateEnd = datefin;
         this.nbRemainingDevDay = nbRemainingDevDay;
         this.nbRemainingManagementDay = nbRemainingManagementDay;
         this.efficiency = efficiency;

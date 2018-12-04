@@ -3,13 +3,14 @@ import Domain.DataBase;
 import Domain.Project;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class Application {
 
     public static void main (String[] args) {
         ProjetPlanningController planningController = ProjetPlanningController.getProjetPlanningControllerInstance();
-        planningController.getProjetReport();
+        //planningController.getProjetReport();
         
         System.out.println("Bienvenue dans le mini ERP EEVEE. \n");
         DataBase db = new DataBase();
@@ -167,10 +168,10 @@ public class Application {
         String name = sc.next();
 
         System.out.println("Entrez la date de début du nouveau projet");
-        Date dateDebut = askDate("debut");
+        LocalDateTime dateDebut = askDate("debut");
 
         System.out.println("Entrez la date de fin du nouveau projet");
-        Date dateFin = askDate("fin");
+        LocalDateTime dateFin = askDate("fin");
 
         while(dateFin.compareTo(dateDebut)  < 0){
             System.out.println("La date de debut dois etre inférieur a la date de fin!");
@@ -202,7 +203,7 @@ public class Application {
         sc.close(); 
     }
 
-    public static Date askDate(String parameter) {
+    public static LocalDateTime askDate(String parameter) {
         Boolean isNotOk = true;
         Scanner sc = new Scanner(System.in);
         int day = 0;
@@ -230,8 +231,8 @@ public class Application {
             isNotOk = (checkDate(year, "year"+parameter)) ? false : true;
         }
 
-        Date date = new Date(day,month,year);
-
+        LocalDateTime date = LocalDateTime.of(day,month,year,0, 0);
+  
         sc.close();
         return date;
     }
