@@ -10,7 +10,6 @@ public class Application {
 
     public static void main (String[] args) {
         ProjetPlanningController planningController = ProjetPlanningController.getProjetPlanningControllerInstance();
-        //planningController.getProjetReport();
         
         System.out.println("Bienvenue dans le mini ERP EEVEE. \n");
         DataBase db = new DataBase();
@@ -98,15 +97,12 @@ public class Application {
 
         switch(choix){
             case 1 :
-            	System.out.println("Fonctionnalité non développée pour l'instant.\n");
-                /* ...not clean 
-                System.out.println("Entrez une nouvelle efficience ");
-                Float efficiency =  sc.nextFloat();
-                System.out.println("La noouvelle efficience de tout les projet est " + efficiency);
-                // todo : modification de l'efficience(toutlesprojet);*/
+            	chooseProject("Efficience");
+            	// il faut récupérer le projet et le placer dans la fonction qui suit 
+                //efficiencyModification(project);
                 break;
             case 2 :
-                chooseProject("Efficience");
+            	//efficiencyModification(project);
                 break;
             case 9 :
                 return;
@@ -161,6 +157,15 @@ public class Application {
         sc.close();
     }
 
+    public static void efficiencyModification(Project project) {
+        System.out.println("Entrez en efficience ");
+        Scanner sc = new Scanner(System.in);
+        Float efficiency =  sc.nextFloat();
+        project.setEfficiency(efficiency);
+        System.out.println("La nouvelle efficience du projet est " + project.getEfficiency());
+        sc.close();
+    }
+    
     public static void addProject(){
         Scanner sc = new Scanner(System.in);
 

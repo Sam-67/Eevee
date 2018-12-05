@@ -18,7 +18,7 @@ public class ProjetPlanningController {
         return instance;
     }
     
-    public HashMap<RemainingDaysType, Integer> getProjectReport(Entreprise entreprise, Project project) {
+    public HashMap<RemainingDaysType, Integer> simulateProjectFeasibility(Entreprise entreprise, Project project) {
     	HashMap<RemainingDaysType, Integer> remainingDays = new HashMap<RemainingDaysType, Integer>();
     	int workDaysUntil = getWorkDaysUntil(project.getDateStart(), project.getDateEnd());
     	int workloadPerDevelopmentInDays = getWorkloadPerDevelopmentInDays(project.getNbRemainingDevDay(), entreprise.getNumbersOfDeveloppers());
@@ -33,6 +33,34 @@ public class ProjetPlanningController {
     	}
     	
     	return remainingDays; 	
+    }
+    
+    public String getProjectFeasibility(Entreprise entreprise, Project project) {
+    	HashMap<RemainingDaysType, Integer> resultProjectFeasibility = simulateProjectFeasibility(entreprise, project);
+    	
+    	String resultToDisplay = new String(); 
+    	
+    	if(resultProjectFeasibility.containsKey(RemainingDaysType.ACHIEVABLE_PROJECT)) {
+    		resultToDisplay = "Super ! Le projet peut être réalisable dans les temps !";
+    	} else if (resultProjectFeasibility.containsKey(RemainingDaysType.PROJECT_MANAGEMENT)) {
+    		resultToDisplay = "Le projet ne peut pas être réalisable à cause du temps de gestion de projet.";
+    	} else if(resultProjectFeasibility.containsKey(RemainingDaysType.DEVELOPMENT))  { 
+    		resultToDisplay = "Le projet ne peut pas être réalisable à cause du temps de développement.";
+    	} else {
+    		resultToDisplay = "Erreur dans le projet !";
+    	}
+    	
+    	return resultToDisplay;
+    }
+    
+    public String getAllProjectsFeasibility(Entreprise entreprise) {
+    	String resultToDisplay = new String(); 
+    	
+    	for(Project project : entreprise.getProjects()){
+    		resultToDisplay = getProjectFeasibility(entreprise, project); 
+    	}
+    	
+    	return resultToDisplay;
     }
       
     public int getWorkDaysUntil(LocalDateTime startDate, LocalDateTime endDate) {

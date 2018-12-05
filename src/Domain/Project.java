@@ -1,8 +1,6 @@
 package Domain;
 
 import java.time.LocalDateTime;
-import java.util.Date;
-
 public class Project {
 
     private String name;
