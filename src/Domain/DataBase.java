@@ -85,7 +85,7 @@ public class DataBase {
                 DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 LocalDate datedeb = LocalDate.parse(param[1], format);
                 LocalDate datefin = LocalDate.parse(param[2], format);
-                Project p = new Project(param[0], datedeb, datefin, Integer.parseInt(param[3]), Integer.parseInt(param[4]), Float.parseFloat(param[3]));
+                Project p = new Project(param[0], datedeb, datefin, Integer.parseInt(param[3]), Integer.parseInt(param[4]), Float.parseFloat(param[5]));
                 projectList.add(p);
             }
             buff.close();

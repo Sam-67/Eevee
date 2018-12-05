@@ -100,11 +100,9 @@ public class Application {
         switch(choix){
             case 1 :
             	chooseProject("Efficience");
-            	// il faut récupérer le projet et le placer dans la fonction qui suit 
-                //efficiencyModification(project);
                 break;
             case 2 :
-            	//efficiencyModification(project);
+            	allProjectEfficiencyModification();
                 break;
             case 9 :
                 return;
@@ -159,6 +157,15 @@ public class Application {
        
     }
 
+    public static void allProjectEfficiencyModification() {
+    	System.out.println("Entrez en efficience ");
+        Scanner sc = new Scanner(System.in);
+        Float efficiency =  sc.nextFloat();
+        DataBase.getDataBaseInstance().getEntreprise().getProjects().stream().forEach((x) -> x.setEfficiency(efficiency));
+        System.out.println("Efficience modifiée : ");
+        displayProjects();
+    }
+    
     public static void efficiencyModification(Project project) {
         System.out.println("Entrez en efficience ");
         Scanner sc = new Scanner(System.in);
@@ -277,6 +284,7 @@ public class Application {
     	System.out.println("Employés : ");
         displayEmployees();
     }
+    
     public static void displayProjects() {
     	DataBase.getDataBaseInstance().getEntreprise().getProjects().stream().forEach( System.out::println );;
     }
