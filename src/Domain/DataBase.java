@@ -270,7 +270,7 @@ public class DataBase {
 
         // employe
         try{
-            InputStream flux = new FileInputStream("./Eevee/src/Ressources/Employe.txt");
+            InputStream flux = new FileInputStream("./src/Ressources/Employe.txt");
             InputStreamReader lecture = new InputStreamReader(flux);
             BufferedReader buff = new BufferedReader(lecture);
             String ligne;
@@ -307,7 +307,7 @@ public class DataBase {
 
         //project
         try{
-            InputStream flux = new FileInputStream("./Eevee/src/Ressources/Projets.txt");
+            InputStream flux = new FileInputStream(".src/Ressources/Projets.txt");
             InputStreamReader lecture = new InputStreamReader(flux);
             BufferedReader buff = new BufferedReader(lecture);
             String ligne;
