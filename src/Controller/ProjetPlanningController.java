@@ -1,5 +1,6 @@
 package Controller;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
@@ -63,7 +64,7 @@ public class ProjetPlanningController {
     	return resultToDisplay;
     }
       
-    public int getWorkDaysUntil(LocalDateTime startDate, LocalDateTime endDate) {
+    public int getWorkDaysUntil(LocalDate startDate, LocalDate endDate) {
     	int numberOfDaysBetween = (int) ChronoUnit.DAYS.between(startDate, endDate);
     	int numberOfMounthBetween = (int) ChronoUnit.MONTHS.between(startDate, endDate);
     	return numberOfDaysBetween - (numberOfMounthBetween * 2);
