@@ -307,7 +307,7 @@ public class DataBase {
 
         //project
         try{
-            InputStream flux = new FileInputStream(".src/Ressources/Projets.txt");
+            InputStream flux = new FileInputStream("./src/Ressources/Projets.txt");
             InputStreamReader lecture = new InputStreamReader(flux);
             BufferedReader buff = new BufferedReader(lecture);
             String ligne;
