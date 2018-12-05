@@ -41,4 +41,12 @@ public class Employee {
         this.dateReadyToWork = dateReadyToWork;
     }
 
+	@Override
+	public String toString() {
+		return "Employee [lastName=" + lastName + ", firsName=" + firsName + ", role=" + role + ", dateReadyToWork="
+				+ dateReadyToWork + "]";
+	}
+
+    
+    
 }

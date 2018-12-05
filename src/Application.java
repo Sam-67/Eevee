@@ -1,6 +1,7 @@
 import Controller.ProjetPlanningController;
 import Domain.DataBase;
 import Domain.Project;
+import javafx.scene.chart.PieChart.Data;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -13,9 +14,9 @@ public class Application {
         ProjetPlanningController planningController = ProjetPlanningController.getProjetPlanningControllerInstance();
         
         System.out.println("Bienvenue dans le mini ERP EEVEE. \n");
-        DataBase db = new DataBase();
-        db.init();
-        
+        DataBase.getDataBaseInstance().init();
+        System.out.println("Database initialisée, voici les informations de base : ");
+        displayBaseInformations();
         Scanner sc = new Scanner(System.in);
         int choix = 1;
         
@@ -268,5 +269,19 @@ public class Application {
                 break;
         }
         return isOk;
+    }
+    
+    public static void displayBaseInformations() {
+    	System.out.println("Projets : ");
+    	displayProjects();
+    	System.out.println("Employés : ");
+        displayEmployees();
+    }
+    public static void displayProjects() {
+    	DataBase.getDataBaseInstance().getEntreprise().getProjects().stream().forEach( System.out::println );;
+    }
+    
+    public static void displayEmployees() {
+    	DataBase.getDataBaseInstance().getEntreprise().getEmployees().stream().forEach( System.out::println );;
     }
 }

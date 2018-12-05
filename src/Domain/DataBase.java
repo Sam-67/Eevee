@@ -7,267 +7,34 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import Controller.ProjetPlanningController;
+
 public class DataBase {
-    private List<Employee> EmployeeList;
-    private List<Project> ProjectList;
+	public static DataBase instance;
+	private Entreprise entreprise;
 
+    public Entreprise getEntreprise() {
+		return entreprise;
+	}
 
-    public DataBase()
-    {
-        this.EmployeeList = new List<Employee>() {
-            @Override
-            public int size() {
-                return 0;
-            }
+	public void setEntreprise(Entreprise entreprise) {
+		this.entreprise = entreprise;
+	}
 
-            @Override
-            public boolean isEmpty() {
-                return false;
-            }
-
-            @Override
-            public boolean contains(Object o) {
-                return false;
-            }
-
-            @Override
-            public Iterator<Employee> iterator() {
-                return null;
-            }
-
-            @Override
-            public Object[] toArray() {
-                return new Object[0];
-            }
-
-            @Override
-            public <T> T[] toArray(T[] a) {
-                return null;
-            }
-
-            @Override
-            public boolean add(Employee employee) {
-                return false;
-            }
-
-            @Override
-            public boolean remove(Object o) {
-                return false;
-            }
-
-            @Override
-            public boolean containsAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public boolean addAll(Collection<? extends Employee> c) {
-                return false;
-            }
-
-            @Override
-            public boolean addAll(int index, Collection<? extends Employee> c) {
-                return false;
-            }
-
-            @Override
-            public boolean removeAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public boolean retainAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public void clear() {
-
-            }
-
-            @Override
-            public Employee get(int index) {
-                return null;
-            }
-
-            @Override
-            public Employee set(int index, Employee element) {
-                return null;
-            }
-
-            @Override
-            public void add(int index, Employee element) {
-
-            }
-
-            @Override
-            public Employee remove(int index) {
-                return null;
-            }
-
-            @Override
-            public int indexOf(Object o) {
-                return 0;
-            }
-
-            @Override
-            public int lastIndexOf(Object o) {
-                return 0;
-            }
-
-            @Override
-            public ListIterator<Employee> listIterator() {
-                return null;
-            }
-
-            @Override
-            public ListIterator<Employee> listIterator(int index) {
-                return null;
-            }
-
-            @Override
-            public List<Employee> subList(int fromIndex, int toIndex) {
-                return null;
-            }
-        };
-        this.ProjectList = new List<Project>() {
-            @Override
-            public int size() {
-                return 0;
-            }
-
-            @Override
-            public boolean isEmpty() {
-                return false;
-            }
-
-            @Override
-            public boolean contains(Object o) {
-                return false;
-            }
-
-            @Override
-            public Iterator<Project> iterator() {
-                return null;
-            }
-
-            @Override
-            public Object[] toArray() {
-                return new Object[0];
-            }
-
-            @Override
-            public <T> T[] toArray(T[] a) {
-                return null;
-            }
-
-            @Override
-            public boolean add(Project project) {
-                return false;
-            }
-
-            @Override
-            public boolean remove(Object o) {
-                return false;
-            }
-
-            @Override
-            public boolean containsAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public boolean addAll(Collection<? extends Project> c) {
-                return false;
-            }
-
-            @Override
-            public boolean addAll(int index, Collection<? extends Project> c) {
-                return false;
-            }
-
-            @Override
-            public boolean removeAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public boolean retainAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public void clear() {
-
-            }
-
-            @Override
-            public Project get(int index) {
-                return null;
-            }
-
-            @Override
-            public Project set(int index, Project element) {
-                return null;
-            }
-
-            @Override
-            public void add(int index, Project element) {
-
-            }
-
-            @Override
-            public Project remove(int index) {
-                return null;
-            }
-
-            @Override
-            public int indexOf(Object o) {
-                return 0;
-            }
-
-            @Override
-            public int lastIndexOf(Object o) {
-                return 0;
-            }
-
-            @Override
-            public ListIterator<Project> listIterator() {
-                return null;
-            }
-
-            @Override
-            public ListIterator<Project> listIterator(int index) {
-                return null;
-            }
-
-            @Override
-            public List<Project> subList(int fromIndex, int toIndex) {
-                return null;
-            }
-        };
+	public static DataBase getDataBaseInstance(){
+        if(instance == null){
+            instance = new DataBase();
+        }
+        return instance;
     }
 
+    public DataBase(){}
 
-    public List<Employee> getEmployeeList() {
-        return EmployeeList;
-    }
-
-    public void setEmployeeList(List<Employee> employeeList) {
-        EmployeeList = employeeList;
-    }
-
-    public List<Project> getProjectList() {
-        return ProjectList;
-    }
-
-    public void setProjectList(List<Project> projectList) {
-        this.ProjectList = projectList;
-    }
 
     public void init()
     {
-
+    	List<Employee> employeeList = new ArrayList<Employee>();;
+    	List<Project> projectList = new ArrayList<Project>();
         // employe
         try{
             InputStream flux = new FileInputStream("./src/Ressources/Employe.txt");
@@ -297,7 +64,7 @@ public class DataBase {
                 }             
                 
                 Employee emp = new Employee(param[0], param[1], role, date);
-                EmployeeList.add(emp);
+                employeeList.add(emp);
             }
             buff.close();
         }
@@ -319,13 +86,15 @@ public class DataBase {
                 LocalDate datedeb = LocalDate.parse(param[1], format);
                 LocalDate datefin = LocalDate.parse(param[2], format);
                 Project p = new Project(param[0], datedeb, datefin, Integer.parseInt(param[3]), Integer.parseInt(param[4]), Float.parseFloat(param[3]));
-                ProjectList.add(p);
+                projectList.add(p);
             }
             buff.close();
         }
         catch (Exception e){
             System.out.println(e.toString());
         }
+        
+        this.entreprise = new Entreprise("CoursErp",employeeList, projectList);
 
     }
 

@@ -70,4 +70,13 @@ public class Project {
     public void setEfficiency(float efficiency) {
         this.efficiency = efficiency;
     }
+
+	@Override
+	public String toString() {
+		return "Project [name=" + name + ", dateStart=" + dateStart + ", dateEnd=" + dateEnd + ", nbRemainingDevDay="
+				+ nbRemainingDevDay + ", nbRemainingManagementDay=" + nbRemainingManagementDay + ", efficiency="
+				+ efficiency + "]";
+	}
+    
+    
 }
