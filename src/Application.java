@@ -3,6 +3,7 @@ import Domain.DataBase;
 import Domain.Project;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -173,10 +174,10 @@ public class Application {
         String name = sc.next();
 
         System.out.println("Entrez la date de début du nouveau projet");
-        LocalDateTime dateDebut = askDate("debut");
+        LocalDate dateDebut = askDate("debut");
 
         System.out.println("Entrez la date de fin du nouveau projet");
-        LocalDateTime dateFin = askDate("fin");
+        LocalDate dateFin = askDate("fin");
 
         while(dateFin.compareTo(dateDebut)  < 0){
             System.out.println("La date de debut dois etre inférieur a la date de fin!");
@@ -208,7 +209,7 @@ public class Application {
         sc.close(); 
     }
 
-    public static LocalDateTime askDate(String parameter) {
+    public static LocalDate askDate(String parameter) {
         Boolean isNotOk = true;
         Scanner sc = new Scanner(System.in);
         int day = 0;
@@ -236,7 +237,7 @@ public class Application {
             isNotOk = (checkDate(year, "year"+parameter)) ? false : true;
         }
 
-        LocalDateTime date = LocalDateTime.of(day,month,year,0, 0);
+        LocalDate date = LocalDate.of(day,month,year);
   
         sc.close();
         return date;

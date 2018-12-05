@@ -1,5 +1,6 @@
 package Domain;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Employee {
@@ -7,9 +8,9 @@ public class Employee {
     private String lastName;
     private String firsName;
     private EmployeRole role;
-    private LocalDateTime dateReadyToWork;
+    private LocalDate dateReadyToWork;
 
-    public Employee(String lastName, String firsName, EmployeRole role, LocalDateTime dateReadyToWork) {
+    public Employee(String lastName, String firsName, EmployeRole role, LocalDate dateReadyToWork) {
         this.lastName = lastName;
         this.firsName = firsName;
         this.role = role;
@@ -32,11 +33,11 @@ public class Employee {
         this.firsName = firsName;
     }
 
-    public LocalDateTime getDateReadyToWork() {
+    public LocalDate getDateReadyToWork() {
         return dateReadyToWork;
     }
 
-    public void setDateReadyToWork(LocalDateTime dateReadyToWork) {
+    public void setDateReadyToWork(LocalDate dateReadyToWork) {
         this.dateReadyToWork = dateReadyToWork;
     }
 

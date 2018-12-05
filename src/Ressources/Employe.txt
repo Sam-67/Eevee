@@ -1,6 +1,6 @@
 # nom;prenom;datePretEmplois;role
-Mesbah;Sarah;01/06/2017;CEO
-David;Marck;01/06/2017;PROJECT_MANAGER
-Zeamari;Mohamed;01/06/2017;TECHNICAL_MANAGER
-Genton;Pierre;01/06/2017;DEVELLOPER
-Moser;Maxime;01/06/2017;DEVELLOPER
+Mesbah;Sarah;01-06-2017;CEO
+David;Marck;01-06-2017;PROJECT_MANAGER
+Zeamari;Mohamed;01-06-2017;TECHNICAL_MANAGER
+Genton;Pierre;01-06-2017;DEVELLOPER
+Moser;Maxime;01-06-2017;DEVELLOPER

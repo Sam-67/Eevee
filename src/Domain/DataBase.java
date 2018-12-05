@@ -2,6 +2,7 @@ package Domain;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -269,7 +270,7 @@ public class DataBase {
 
         // employe
         try{
-            InputStream flux = new FileInputStream("./src/Ressources/Employe.txt");
+            InputStream flux = new FileInputStream("./Eevee/src/Ressources/Employe.txt");
             InputStreamReader lecture = new InputStreamReader(flux);
             BufferedReader buff = new BufferedReader(lecture);
             String ligne;
@@ -277,8 +278,8 @@ public class DataBase {
                 if(ligne.contains("#"))
                     continue;
                 String[] param = ligne.split(";");
-                DateTimeFormatter  format = DateTimeFormatter.ofPattern("dd/MMM/yyyy");
-                LocalDateTime date = LocalDateTime.parse(param[2]);
+                DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                LocalDate date = LocalDate.parse(param[2], format);
                 EmployeRole role = null;
                 switch(param[3]) {
 	                case "CEO":
@@ -306,7 +307,7 @@ public class DataBase {
 
         //project
         try{
-            InputStream flux = new FileInputStream("./src/Ressources/Project.txt");
+            InputStream flux = new FileInputStream("./Eevee/src/Ressources/Projets.txt");
             InputStreamReader lecture = new InputStreamReader(flux);
             BufferedReader buff = new BufferedReader(lecture);
             String ligne;
@@ -314,9 +315,9 @@ public class DataBase {
                 if(ligne.contains("#"))
                     continue;
                 String[] param = ligne.split(";");
-                DateTimeFormatter  format = DateTimeFormatter.ofPattern("dd/MMM/yyyy");
-                LocalDateTime datedeb = LocalDateTime.parse(param[1]);
-                LocalDateTime datefin = LocalDateTime.parse(param[2]);
+                DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                LocalDate datedeb = LocalDate.parse(param[1], format);
+                LocalDate datefin = LocalDate.parse(param[2], format);
                 Project p = new Project(param[0], datedeb, datefin, Integer.parseInt(param[3]), Integer.parseInt(param[4]), Float.parseFloat(param[3]));
                 ProjectList.add(p);
             }
