@@ -48,7 +48,7 @@ public class Application {
 
         }
         
-        sc.close();
+       
     }
 
     public static void showPlanningMenu() {
@@ -82,7 +82,7 @@ public class Application {
                 break;
         }
         
-        sc.close();
+       
     }
 
     public static void showModifyEfficiencyMenu() {
@@ -116,7 +116,7 @@ public class Application {
                 break;
         }
         
-        sc.close();
+       
     }
 
     public static void chooseProject( String action) {
@@ -155,7 +155,7 @@ public class Application {
             quit();
         }
         
-        sc.close();
+       
     }
 
     public static void efficiencyModification(Project project) {
@@ -164,7 +164,7 @@ public class Application {
         Float efficiency =  sc.nextFloat();
         project.setEfficiency(efficiency);
         System.out.println("La nouvelle efficience du projet est " + project.getEfficiency());
-        sc.close();
+       
     }
     
     public static void addProject(){
@@ -206,7 +206,7 @@ public class Application {
         System.out.println("(nombre de jour restant de gestion : " + newProject.getNbRemainingManagementDay());
         System.out.println("(efficience : " +  newProject.getEfficiency());
 
-        sc.close(); 
+        
     }
 
     public static LocalDate askDate(String parameter) {
@@ -237,9 +237,9 @@ public class Application {
             isNotOk = (checkDate(year, "year"+parameter)) ? false : true;
         }
 
-        LocalDate date = LocalDate.of(day,month,year);
+        LocalDate date = LocalDate.of(year, month, day);
   
-        sc.close();
+       
         return date;
     }
 
