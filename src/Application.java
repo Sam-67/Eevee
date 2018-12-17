@@ -31,13 +31,13 @@ public class Application {
 
             switch (choix){
                 case 1 :
-                    showPlanningMenu();
+                    showPlanningMenu(sc);
                     break;
                 case 2 :
-                    addProject();
+                    addProject(sc);
                     break;
                 case 3 :
-                    showModifyEfficiencyMenu();
+                    showModifyEfficiencyMenu(sc);
                     break;
                 case 0 :
                     System.out.println("Vous quittez l'ERP.\n");
@@ -49,28 +49,31 @@ public class Application {
 
         }
         
+        sc.close();
+        
        
     }
 
-    public static void showPlanningMenu() {
+    public static void showPlanningMenu(Scanner sc) {
         System.out.println("Quels projets voulez-vous choisir pour vérifier le planning ?\n"
-        		+ "\n1 : Un ou plusieurs projets"
+        		+ "\n1 : Un projet"
         		+ "\n2 : Tous les projets"
         		+ "\n9 : Retour"
         		+ "\n0 : Quitter"
         );
 
-        Scanner sc = new Scanner(System.in);
         int choix = sc.nextInt();
 
         switch(choix){
             case 1 :
-                System.out.println("Fonctionnalité non développée pour l'instant.\n");
-                chooseProject("planning");
+            	System.out.println("Fonctionnalité non développée pour l'instant.\n");
                 // todo : checkPlanning(touslesprojet);
+                chooseProject("planning", sc);
+
                 break;
             case 2 :
-            	System.out.println(ProjetPlanningController.getProjetPlanningControllerInstance().getAllProjectsFeasibility(DataBase.getDataBaseInstance().getEntreprise()));
+                System.out.println("Fonctionnalité non développée pour l'instant.\n");
+            	showPlanningMenu(sc);
                 break;
             case 9 :
             	return;
@@ -79,30 +82,30 @@ public class Application {
                 break;
             default:
                 System.out.println("Veuillez choisir un des choix proposé !\n");
-                showPlanningMenu();
+                showPlanningMenu(sc);
                 break;
         }
         
        
     }
 
-    public static void showModifyEfficiencyMenu() {
+    public static void showModifyEfficiencyMenu(Scanner sc) {
         System.out.println("Quelle efficience voulez-vous changer? \n"
-        		+ "\n1 : Celle d'un ou plusieurs projets"
+        		+ "\n1 : Celle d'un projet"
         		+ "\n2 : Celle de tous les projets"
         		+ "\n9 : Retour"
         		+ "\n0 : Quitter"
         );
 
-        Scanner sc = new Scanner(System.in);
+        sc = new Scanner(System.in);
         int choix = sc.nextInt();
 
         switch(choix){
             case 1 :
-            	chooseProject("Efficience");
+            	chooseProject("efficience", sc);
                 break;
             case 2 :
-            	allProjectEfficiencyModification();
+            	allProjectEfficiencyModification(sc);
                 break;
             case 9 :
                 return;
@@ -111,114 +114,120 @@ public class Application {
                 break;
             default:
                 System.out.println("Veuillez choisir un des choix proposé.\n");
-                showModifyEfficiencyMenu();
+                showModifyEfficiencyMenu(sc);
                 break;
         }
         
        
     }
 
-    public static void chooseProject( String action) {
+    public static void chooseProject( String action, Scanner sc) {
         // To do : lister la liste des projets
         System.out.println("Selectionnez un projet ");
-        System.out.println("1 : Projet 1");
-        System.out.println("2 : Projet 2");
-        System.out.println("3 : Projet 3");
+        List<Project> ProjectList = DataBase.instance.getEntreprise().getProjects();
+        
+        int i = 1;
+        for(Project p : ProjectList)
+        { 
+        	if(i == 9)
+        		i++;
+        	
+            System.out.println(i + " : " + p.getName());
+            i++;
+        }
+
         System.out.println("9 : Retour");
         System.out.println("0 : quitter");
 
-        Scanner sc = new Scanner(System.in);
         int choix = sc.nextInt();
-
-        if(choix == 1 || choix == 2 || choix == 3) { // en dur a changer par (choix < nbProject)) 
+        
+        if(choix < ProjectList.size()) { 
             if(action == "planning") {
-                System.out.println("Le projet " + choix + " va etre realise dans les temps !");
+                System.out.println("Le projet va etre realise dans les temps !");
                 // todo : checkPlanning(projet);
             }
             else if(action == "efficience") {
                 System.out.println("Entrez une nouvelle efficience ");
                 Float efficiency =  sc.nextFloat();
-                System.out.println("Le projet " + choix + " a désormais une efficience de " + efficiency);
+                System.out.println("Le projet a désormais une efficience de " + efficiency);
+                // todo : changerEfficience(projet);
             } else {
-            System.out.println("Veuillez une des action proposé !");
-            chooseProject(action);
+            System.out.println("Veuillez choisir une des action proposé !");
+            chooseProject(action, sc);
             }
         } else if(choix == 9) {
             if(action == "planning"){
-                showPlanningMenu();
+                showPlanningMenu(sc);
             } else if(action == "efficience") {
-                showModifyEfficiencyMenu();
+                showModifyEfficiencyMenu(sc);
             }
         } else if(choix == 0) {
             quit();
+        }else {
+            System.out.println("Veuillez choisir une des action proposé !");
         }
         
        
     }
 
-    public static void allProjectEfficiencyModification() {
-    	System.out.println("Entrez en efficience ");
-        Scanner sc = new Scanner(System.in);
+    public static void allProjectEfficiencyModification(Scanner sc) {
+    	System.out.println("Entrez une efficience ");
         Float efficiency =  sc.nextFloat();
         DataBase.getDataBaseInstance().getEntreprise().getProjects().stream().forEach((x) -> x.setEfficiency(efficiency));
         System.out.println("Efficience modifiée : ");
         displayProjects();
     }
     
-    public static void efficiencyModification(Project project) {
+    public static void efficiencyModification(Project project, Scanner sc) {
         System.out.println("Entrez en efficience ");
-        Scanner sc = new Scanner(System.in);
         Float efficiency =  sc.nextFloat();
         project.setEfficiency(efficiency);
         System.out.println("La nouvelle efficience du projet est " + project.getEfficiency());
        
     }
     
-    public static void addProject(){
-        Scanner sc = new Scanner(System.in);
+    public static void addProject(Scanner sc){
 
         System.out.println("Entrez le nom du nouveau projet");
         String name = sc.next();
 
         System.out.println("Entrez la date de début du nouveau projet");
-        LocalDate dateDebut = askDate("debut");
+        LocalDate dateDebut = askDate("debut", sc);
 
         System.out.println("Entrez la date de fin du nouveau projet");
-        LocalDate dateFin = askDate("fin");
+        LocalDate dateFin = askDate("fin", sc);
 
         while(dateFin.compareTo(dateDebut)  < 0){
             System.out.println("La date de debut dois etre inférieur a la date de fin!");
 
             System.out.println("Entrez la date de début du nouveau projet");
-            dateDebut = askDate("debut");
+            dateDebut = askDate("debut", sc);
 
             System.out.println("Entrez la date de fin du nouveau projet");
-            dateFin = askDate("fin");
+            dateFin = askDate("fin", sc);
         }
 
-        int nbJourDeDev = 10; // toDo : calcul
+        System.out.println("Entrez le nombre de jour de developpement");
+        int nbJourDeDev = sc.nextInt();
 
-        int nbJourGestion = 10; // todo : calcul
+        System.out.println("Entrez le nombre de jour de gestion de projet");
+        int nbJourGestion = sc.nextInt(); 
 
         System.out.println("Entrez l'efficience du nouveau projet");
         float efficience = sc.nextFloat();
 
         Project newProject = new Project(name, dateDebut, dateFin, nbJourDeDev, nbJourGestion, efficience);
 
-        System.out.println("Projet ajoutÃ© avec succés : ");
-        System.out.println("(nom : " + newProject.getName());
-        System.out.println("(date de debut  : " + newProject.getDateStart());
-        System.out.println("(date de fin : " + newProject.getDateStart());
-        System.out.println("(nombre de jour restant de developpement : " + newProject.getNbRemainingDevDay());
-        System.out.println("(nombre de jour restant de gestion : " + newProject.getNbRemainingManagementDay());
-        System.out.println("(efficience : " +  newProject.getEfficiency());
-
+        DataBase.instance.addProject(newProject);
+        
+        System.out.println("Projet ajouté avec succés : ");
+        
+        displayBaseInformations();
         
     }
 
-    public static LocalDate askDate(String parameter) {
+    public static LocalDate askDate(String parameter, Scanner sc) {
         Boolean isNotOk = true;
-        Scanner sc = new Scanner(System.in);
         int day = 0;
         int month = 0;
         int year = 0;

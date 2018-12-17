@@ -37,7 +37,7 @@ public class DataBase {
     	List<Project> projectList = new ArrayList<Project>();
         // employe
         try{
-            InputStream flux = new FileInputStream("./src/Ressources/Employe.txt");
+            InputStream flux = new FileInputStream("./Eevee/src/Ressources/Employe.txt");
             InputStreamReader lecture = new InputStreamReader(flux);
             BufferedReader buff = new BufferedReader(lecture);
             String ligne;
@@ -74,7 +74,7 @@ public class DataBase {
 
         //project
         try{
-            InputStream flux = new FileInputStream("./src/Ressources/Projets.txt");
+            InputStream flux = new FileInputStream("./Eevee/src/Ressources/Projets.txt");
             InputStreamReader lecture = new InputStreamReader(flux);
             BufferedReader buff = new BufferedReader(lecture);
             String ligne;
@@ -96,6 +96,13 @@ public class DataBase {
         
         this.entreprise = new Entreprise("CoursErp",employeeList, projectList);
 
+    }
+    
+    public void addProject(Project p)
+    {
+    	List<Project> allproject = this.entreprise.getProjects();
+    	allproject.add(p);
+    	this.entreprise.setProjects(allproject);    	
     }
 
 }
