@@ -55,19 +55,15 @@ public class ProjetPlanningController {
     	if(resultProjectFeasibility.containsKey(RemainingDaysType.ACHIEVABLE_PROJECT)) {
     		resultToDisplay = "Super ! Le projet peut être réalisable dans les temps !";
     		
-    	} else if (resultProjectFeasibility.containsKey(RemainingDaysType.PROJECT_MANAGEMENT)) {
-    		resultToDisplay = "Le projet ne peut pas être réalisable à cause du temps de gestion de projet.";
-    		
-    		// Re-testing with more project manager 
+    	} else if (resultProjectFeasibility.containsKey(RemainingDaysType.DEVELOPMENT)) {
+    		resultToDisplay = "Le projet ne peut pas être réalisable à cause du temps de développement, il reste : "+resultProjectFeasibility.toString();
     		HashMap<RemainingDaysType, Integer> addingDeveloppers = new HashMap<RemainingDaysType, Integer>();
-    		System.out.println("Nous allons ajouter un développeur.");
-    		addingDeveloppers.put(RemainingDaysType.PROJECT_MANAGEMENT, 1);
+    		System.out.println("Nous allons ajouter un développeur, il reste : "+resultProjectFeasibility.toString());
+    		addingDeveloppers.put(RemainingDaysType.DEVELOPMENT, 1);
     		getProjectFeasibility(entreprise, project, addingDeveloppers);
     		
-    	} else if(resultProjectFeasibility.containsKey(RemainingDaysType.DEVELOPMENT))  { 
-    		resultToDisplay = "Le projet ne peut pas être réalisable à cause du temps de développement.";
-    		
-    		// Re-testing with more dev
+    	} else if(resultProjectFeasibility.containsKey(RemainingDaysType.PROJECT_MANAGEMENT))  { 
+    		resultToDisplay = "Le projet ne peut pas être réalisable à cause du temps de gestion de projet.";
     		HashMap<RemainingDaysType, Integer> addingProjectManagers = new HashMap<RemainingDaysType, Integer>();
     		System.out.println("Nous allons ajouter un chef de projet.");
     		addingProjectManagers.put(RemainingDaysType.PROJECT_MANAGEMENT, 1);
@@ -84,7 +80,7 @@ public class ProjetPlanningController {
     	String resultToDisplay = new String(); 
     	
     	for(Project project : entreprise.getProjects()){
-    		resultToDisplay = getProjectFeasibility(entreprise, project, null); 
+    		resultToDisplay = getProjectFeasibility(entreprise, project, new HashMap<RemainingDaysType, Integer>()); 
     	}
     	
     	return resultToDisplay;

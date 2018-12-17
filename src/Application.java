@@ -65,12 +65,12 @@ public class Application {
 
         switch(choix){
             case 1 :
-            	System.out.println("Fonctionnalité non développée pour l'instant.\n");
+                System.out.println("Fonctionnalité non développée pour l'instant.\n");
+                chooseProject("planning");
                 // todo : checkPlanning(touslesprojet);
                 break;
             case 2 :
-                System.out.println("Fonctionnalité non développée pour l'instant.\n");
-                chooseProject("planning");
+            	System.out.println(ProjetPlanningController.getProjetPlanningControllerInstance().getAllProjectsFeasibility(DataBase.getDataBaseInstance().getEntreprise()));
                 break;
             case 9 :
             	return;
@@ -139,7 +139,6 @@ public class Application {
                 System.out.println("Entrez une nouvelle efficience ");
                 Float efficiency =  sc.nextFloat();
                 System.out.println("Le projet " + choix + " a désormais une efficience de " + efficiency);
-                // todo : changerEfficience(projet);
             } else {
             System.out.println("Veuillez une des action proposé !");
             chooseProject(action);
