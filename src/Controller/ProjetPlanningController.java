@@ -18,24 +18,16 @@ public class ProjetPlanningController {
         return instance;
     }
     
-    public HashMap<RemainingDaysType, Integer> simulateProjectFeasibility(Entreprise entreprise, Project project, HashMap<RemainingDaysType, Integer> numberOfMissingEmployees) {
+    public HashMap<RemainingDaysType, Integer> simulateProjectFeasibility(Entreprise entreprise, Project project) {
     	HashMap<RemainingDaysType, Integer> remainingDays = new HashMap<RemainingDaysType, Integer>();
     	int workDaysUntil = getWorkDaysUntil(project.getDateStart(), project.getDateEnd());
     	
     	int workloadPerDevelopmentInDays = 0;
     	int workloadPerProjectManagerInDays = 0;
-    	
-    	if(numberOfMissingEmployees.containsKey(RemainingDaysType.DEVELOPMENT)) {
-    		workloadPerDevelopmentInDays = getWorkloadPerDevelopmentInDays(project.getNbRemainingDevDay(), entreprise.getNumbersOfDeveloppers() + numberOfMissingEmployees.get(RemainingDaysType.DEVELOPMENT));
-        	workloadPerProjectManagerInDays = getWorkloadPerProjectManagerInDays(project.getNbRemainingManagementDay(), entreprise.getNumbersOfManagers());
-    	} else if(numberOfMissingEmployees.containsKey(RemainingDaysType.PROJECT_MANAGEMENT)) {
-    		workloadPerDevelopmentInDays = getWorkloadPerDevelopmentInDays(project.getNbRemainingDevDay(), entreprise.getNumbersOfDeveloppers());
-        	workloadPerProjectManagerInDays = getWorkloadPerProjectManagerInDays(project.getNbRemainingManagementDay(), entreprise.getNumbersOfManagers()  + numberOfMissingEmployees.get(RemainingDaysType.PROJECT_MANAGEMENT));
-    	} else {
-    		workloadPerDevelopmentInDays = getWorkloadPerDevelopmentInDays(project.getNbRemainingDevDay(), entreprise.getNumbersOfDeveloppers());
-        	workloadPerProjectManagerInDays = getWorkloadPerProjectManagerInDays(project.getNbRemainingManagementDay(), entreprise.getNumbersOfManagers());
-    	}
-    	
+
+    	workloadPerDevelopmentInDays = getWorkloadPerDevelopmentInDays(project.getNbRemainingDevDay(), entreprise.getNumbersOfDeveloppers());
+        workloadPerProjectManagerInDays = getWorkloadPerProjectManagerInDays(project.getNbRemainingManagementDay(), entreprise.getNumbersOfManagers());
+
     	if(workloadPerDevelopmentInDays < workDaysUntil) {
     		remainingDays.put(RemainingDaysType.DEVELOPMENT, workloadPerDevelopmentInDays - workDaysUntil);
     	} else if(workloadPerProjectManagerInDays < workDaysUntil) {
@@ -47,8 +39,8 @@ public class ProjetPlanningController {
     	return remainingDays; 	
     }
 
-    public String getProjectFeasibility(Entreprise entreprise, Project project, HashMap<RemainingDaysType, Integer> numberOfMissingEmployees) {
-    	HashMap<RemainingDaysType, Integer> resultProjectFeasibility = simulateProjectFeasibility(entreprise, project, numberOfMissingEmployees);
+    public String getProjectFeasibility(Entreprise entreprise, Project project) {
+    	HashMap<RemainingDaysType, Integer> resultProjectFeasibility = simulateProjectFeasibility(entreprise, project);
     	
     	String resultToDisplay = new String(); 
     	
@@ -57,22 +49,11 @@ public class ProjetPlanningController {
     		
     	} else if (resultProjectFeasibility.containsKey(RemainingDaysType.PROJECT_MANAGEMENT)) {
     		resultToDisplay = "Le projet ne peut pas être réalisable à cause du temps de gestion de projet.";
-    		
-    		// Re-testing with more project manager 
-    		HashMap<RemainingDaysType, Integer> addingDeveloppers = new HashMap<RemainingDaysType, Integer>();
-    		System.out.println("Nous allons ajouter un développeur.");
-    		addingDeveloppers.put(RemainingDaysType.PROJECT_MANAGEMENT, 1);
-    		getProjectFeasibility(entreprise, project, addingDeveloppers);
-    		
+
+    		//ProjectFeasibilityWithMoreDev(entreprise, project);
     	} else if(resultProjectFeasibility.containsKey(RemainingDaysType.DEVELOPMENT))  { 
     		resultToDisplay = "Le projet ne peut pas être réalisable à cause du temps de développement.";
-    		
-    		// Re-testing with more dev
-    		HashMap<RemainingDaysType, Integer> addingProjectManagers = new HashMap<RemainingDaysType, Integer>();
-    		System.out.println("Nous allons ajouter un chef de projet.");
-    		addingProjectManagers.put(RemainingDaysType.PROJECT_MANAGEMENT, 1);
-    		getProjectFeasibility(entreprise, project, addingProjectManagers);
-    		
+    		ProjectFeasibilityWithMoreDev(entreprise, project);
     	} else {
     		resultToDisplay = "Erreur dans le projet !";
     	}
@@ -80,11 +61,25 @@ public class ProjetPlanningController {
     	return resultToDisplay;
     }
     
+    public String ProjectFeasibilityWithMoreDev(Entreprise entreprise, Project project) {
+		System.out.println("Nous allons ajouter un développeur.");
+		Integer numberOfDevAdded = 0;
+		HashMap<RemainingDaysType, Integer> resultNeeded = new HashMap<RemainingDaysType, Integer>();
+		resultNeeded.put(RemainingDaysType.ACHIEVABLE_PROJECT, 0);
+		
+		while(simulateProjectFeasibility(entreprise, project) != resultNeeded) {
+			numberOfDevAdded++;
+		}
+		
+		return "Le nombre de dev manquant est de +"+ numberOfDevAdded;
+    }
+    
+    
     public String getAllProjectsFeasibility(Entreprise entreprise) {
     	String resultToDisplay = new String(); 
     	
     	for(Project project : entreprise.getProjects()){
-    		resultToDisplay = getProjectFeasibility(entreprise, project, null); 
+    		resultToDisplay = getProjectFeasibility(entreprise, project); 
     	}
     	
     	return resultToDisplay;
