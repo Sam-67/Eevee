@@ -275,11 +275,11 @@ public class Application {
 
 	public static void displayProjects() {
 		DataBase.getDataBaseInstance().getEntreprise().getProjects().stream().forEach(System.out::println);
-		;
+		
 	}
 
 	public static void displayEmployees() {
 		DataBase.getDataBaseInstance().getEntreprise().getEmployees().stream().forEach(System.out::println);
-		;
+		
 	}
 }
