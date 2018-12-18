@@ -72,7 +72,7 @@ public class Application {
 			  choix = Integer.parseInt(choixString);
 		}
 		catch(Exception e) {
-			System.out.println("Mauvais format, veuillez choisir un des choix proposé");
+			System.out.println("Mauvais format, veuillez choisir un des choix proposés");
 			showPlanningMenu(sc);
 			
 		}
@@ -94,7 +94,7 @@ public class Application {
 			quit(sc);
 			break;
 		default:
-			System.out.println("Veuillez choisir un des choix proposé !\n");
+			System.out.println("Veuillez choisir un des choix proposés !\n");
 			showPlanningMenu(sc);
 			break;
 		}
@@ -114,7 +114,7 @@ public class Application {
 			  choix = Integer.parseInt(choixString);
 		}
 		catch(Exception e) {
-			System.out.println("Mauvais format, veuillez choisir un des choix proposé");
+			System.out.println("Mauvais format, veuillez choisir un des choix proposés");
 			showModifyEfficiencyMenu(sc);
 			
 		}
@@ -133,7 +133,7 @@ public class Application {
 			quit(sc);
 			break;
 		default:
-			System.out.println("Veuillez choisir un des choix proposé.\n");
+			System.out.println("Veuillez choisir un des choix proposés.\n");
 			showModifyEfficiencyMenu(sc);
 			break;
 		}
@@ -164,20 +164,20 @@ public class Application {
 			  choix = Integer.parseInt(choixString);
 		}
 		catch(Exception e) {
-			System.out.println("Mauvais format ou choix indisponible, veuillez choisir un des choix proposé");
+			System.out.println("Mauvais format ou choix indisponible, veuillez choisir un des choix proposés");
 			showPlanningMenu(sc);
 			
 		}
 
 		if (choix < ProjectList.size()) {
 			if (action == "planning") {
-				System.out.println("Le projet va etre realise dans les temps !");
+				System.out.println("Le projet va être realise dans les temps !");
 				// todo : checkPlanning(projet);
 			} else if (action == "efficience") {
             	Project project = ProjectList.get(choix-1);
             	efficiencyModification(project, sc);
 			} else {
-				System.out.println("Veuillez choisir une des action proposé !");
+				System.out.println("Veuillez choisir une des actions proposées !");
 				chooseProject(action, sc);
 			}
 		} else if (choix == 9) {
@@ -189,7 +189,7 @@ public class Application {
 		} else if (choix == 0) {
 			quit(sc);
 		} else {
-			System.out.println("Veuillez choisir une des action proposé !");
+			System.out.println("Veuillez choisir une des actions proposées !");
 		}
 
 	}
@@ -212,7 +212,7 @@ public class Application {
 	}
 
 	public static void efficiencyModification(Project project, Scanner sc) {
-		System.out.println("Entrez en efficience ");
+		System.out.println("Entrez une efficience ");
 		sc.nextLine();
 		String str = sc.nextLine();
 			try {
@@ -237,7 +237,7 @@ public class Application {
 		LocalDate dateFin = askDate("fin", sc);
 
 		while (dateFin.compareTo(dateDebut) < 0) {
-			System.out.println("La date de debut dois etre inférieur a la date de fin!");
+			System.out.println("La date de debut dois être inférieur a la date de fin!");
 
 			System.out.println("Entrez la date de début du nouveau projet");
 			dateDebut = askDate("debut", sc);
@@ -246,7 +246,7 @@ public class Application {
 			dateFin = askDate("fin", sc);
 		}
 
-		System.out.println("Entrez le nombre de jour de developpement");
+		System.out.println("Entrez le nombre de jour de développement");
 		int nbJourDeDev = sc.nextInt();
 
 		System.out.println("Entrez le nombre de jour de gestion de projet");
@@ -288,7 +288,7 @@ public class Application {
 		isNotOk = true;
 
 		while (isNotOk) {
-			System.out.println("Entrez une annee valide.");
+			System.out.println("Entrez une année valide.");
 			year = sc.next();
 			isNotOk = (checkDate(year, "year" + parameter)) ? false : true;
 		}
