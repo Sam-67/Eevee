@@ -129,10 +129,8 @@ public class Application {
 				System.out.println("Le projet va etre realise dans les temps !");
 				// todo : checkPlanning(projet);
 			} else if (action == "efficience") {
-				System.out.println("Entrez une nouvelle efficience ");
-				Float efficiency = sc.nextFloat();
-				System.out.println("Le projet a désormais une efficience de " + efficiency);
-				// todo : changerEfficience(projet);
+            	Project project = ProjectList.get(choix-1);
+            	efficiencyModification(project, sc);
 			} else {
 				System.out.println("Veuillez choisir une des action proposé !");
 				chooseProject(action, sc);
@@ -165,6 +163,7 @@ public class Application {
 		Float efficiency = sc.nextFloat();
 		project.setEfficiency(efficiency);
 		System.out.println("La nouvelle efficience du projet est " + project.getEfficiency());
+		displayProjects();
 
 	}
 
