@@ -4,23 +4,25 @@ import java.time.LocalDate;
 public class Project {
 
     private String name;
-    private LocalDate dateStart;
-    private LocalDate dateEnd;
+    private LocalDate dateStartDev;
+    private LocalDate dateEndDev;
+    private LocalDate dateStartMana;
+    private LocalDate dateEndMana;
+    private LocalDate dateLivraison;
     private int nbRemainingDevDay;
     private int nbRemainingManagementDay;
     private float efficiency;
 
-    public Project(String name, LocalDate datedeb, LocalDate datefin, int nbRemainingDevDay, int nbRemainingManagementDay, float efficiency) {
+    public Project(String name, LocalDate datedebdev, LocalDate datefindev, LocalDate datedebmana, LocalDate datefinmana, LocalDate datelivraison, int nbRemainingDevDay, int nbRemainingManagementDay, float efficiency) {
         this.name = name;
-        this.dateStart = datedeb;
-        this.dateEnd = datefin;
+        this.dateStartDev = datedebdev;
+        this.dateEndDev = datefindev;
+        this.dateStartMana = datedebmana;
+        this.dateEndMana = datefinmana;
+        this.dateLivraison = datelivraison;
         this.nbRemainingDevDay = nbRemainingDevDay;
         this.nbRemainingManagementDay = nbRemainingManagementDay;
         this.efficiency = efficiency;
-    }
-
-    public Project(){
-
     }
 
     public String getName() {
@@ -31,22 +33,46 @@ public class Project {
         this.name = name;
     }
 
-    public LocalDate getDateStart() {
-        return dateStart;
+    public LocalDate getDateStartDev() {
+        return dateStartDev;
     }
 
-    public void setDateStart(LocalDate dateStart) {
-        this.dateStart = dateStart;
+    public void setDateStartDev(LocalDate dateStartDev) {
+        this.dateStartDev = dateStartDev;
+    }
+    
+    public LocalDate getDateEndDev() {
+        return dateEndDev;
     }
 
-    public LocalDate getDateEnd() {
-        return dateEnd;
+    public void setDateEndDev(LocalDate dateEndDev) {
+        this.dateEndDev = dateEndDev;
+    }
+    
+    public LocalDate getDateStartMana() {
+        return dateStartMana;
     }
 
-    public void setDateEnd(LocalDate dateEnd) {
-        this.dateEnd = dateEnd;
+    public void setDateStartMana(LocalDate dateStartMana) {
+        this.dateStartMana = dateStartMana;
     }
 
+    public LocalDate getDateEndMana() {
+        return dateEndMana;
+    }
+
+    public void setDateEndMana(LocalDate dateEndMana) {
+        this.dateEndMana = dateEndMana;
+    }
+    
+    public LocalDate getDateLivraison() {
+        return dateLivraison;
+    }
+
+    public void setDateLivraison(LocalDate dateLivraison) {
+        this.dateLivraison = dateLivraison;
+    }
+    
     public int getNbRemainingDevDay() {
         return nbRemainingDevDay;
     }
@@ -73,7 +99,7 @@ public class Project {
 
 	@Override
 	public String toString() {
-		return "Project [name=" + name + ", dateStart=" + dateStart + ", dateEnd=" + dateEnd + ", nbRemainingDevDay="
+		return "Project [name=" + name + ", dateStartDev=" + dateStartDev + ", dateEndDev=" + dateEndDev + ", nbRemainingDevDay="
 				+ nbRemainingDevDay + ", nbRemainingManagementDay=" + nbRemainingManagementDay + ", efficiency="
 				+ efficiency + "]";
 	}

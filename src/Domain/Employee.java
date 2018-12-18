@@ -39,6 +39,14 @@ public class Employee {
     public void setDateReadyToWork(LocalDate dateReadyToWork) {
         this.dateReadyToWork = dateReadyToWork;
     }
+    
+	public EmployeRole getRole() {
+		return role;
+	}
+
+	public void setRole(EmployeRole role) {
+		this.role = role;
+	}
 
 	@Override
 	public String toString() {
