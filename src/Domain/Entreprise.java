@@ -1,6 +1,7 @@
 package Domain;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Entreprise {
 
@@ -44,10 +45,12 @@ public class Entreprise {
 	}
 	
 	public int getNumbersOfDeveloppers() {
-		return employees.size();
+		List<Employee> developpers = employees.stream().filter(e -> e.getRole().equals(EmployeRole.DEVELLOPER) || e.getRole().equals(EmployeRole.TECHNICAL_MANAGER)).collect(Collectors.toList());
+		return developpers.size();
 	}
 	
 	public int getNumbersOfManagers() {
-		return employees.size();
+		List<Employee> managers = employees.stream().filter(e -> e.getRole().equals(EmployeRole.PROJECT_MANAGER)).collect(Collectors.toList());
+		return managers.size();
 	}
 }

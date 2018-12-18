@@ -198,7 +198,7 @@ public class Application {
 		System.out.println("Entrez l'efficience du nouveau projet");
 		float efficience = sc.nextFloat();
 
-		Project newProject = new Project(name, dateDebut, dateFin, nbJourDeDev, nbJourGestion, efficience);
+		Project newProject = new Project(name, dateDebut, dateFin, dateDebut, dateFin, dateFin, nbJourDeDev, nbJourGestion, efficience);
 
 		DataBase.instance.addProject(newProject);
 
