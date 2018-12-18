@@ -30,6 +30,10 @@ public class Entreprise {
 	public void setEmployees(List<Employee> employees) {
 		this.employees = employees;
 	}
+	
+	public void addEmployee(Employee employee) {
+		employees.add(employee);
+	}
 
 	public List<Project> getProjects() {
 		return projects;
