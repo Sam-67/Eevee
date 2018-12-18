@@ -151,20 +151,32 @@ public class Application {
 
 	public static void allProjectEfficiencyModification(Scanner sc) {
 		System.out.println("Entrez une efficience ");
-		Float efficiency = sc.nextFloat();
-		DataBase.getDataBaseInstance().getEntreprise().getProjects().stream()
+		sc.nextLine();
+		String str = sc.nextLine();
+		try {
+			Float efficiency= Float.parseFloat(str);
+			DataBase.getDataBaseInstance().getEntreprise().getProjects().stream()
 				.forEach((x) -> x.setEfficiency(efficiency));
-		System.out.println("Efficience modifiée : ");
-		displayProjects();
+			System.out.println("Efficience modifiée : ");
+			displayProjects();
+		}catch (NumberFormatException nfe) {
+			System.out.println("Ce n'est pas un nombre décimal");
+		}
+
 	}
 
 	public static void efficiencyModification(Project project, Scanner sc) {
 		System.out.println("Entrez en efficience ");
-		Float efficiency = sc.nextFloat();
-		project.setEfficiency(efficiency);
-		System.out.println("La nouvelle efficience du projet est " + project.getEfficiency());
-		displayProjects();
-
+		sc.nextLine();
+		String str = sc.nextLine();
+			try {
+				Float efficiency= Float.parseFloat(str);
+				project.setEfficiency(efficiency);
+				System.out.println("La nouvelle efficience du projet est " + project.getEfficiency());
+				displayProjects();
+			} catch (NumberFormatException nfe) {
+				System.out.println("Ce n'est pas un nombre décimal");
+			}
 	}
 
 	public static void addProject(Scanner sc) {
