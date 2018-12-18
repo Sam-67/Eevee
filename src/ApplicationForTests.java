@@ -24,8 +24,8 @@ public class ApplicationForTests {
 		employees.add(emp_sarah); 
 		employees.add(emp_chef); 
 		
-		Project proj_google = new Project("Google", LocalDate.of(2017, Month.MAY, 15), LocalDate.of(2017, Month.MAY, 15), 50, 20, 1);
-		Project proj_facebook = new Project("Facebook", LocalDate.of(2017, Month.MAY, 15), LocalDate.of(2017, Month.MAY, 15), 70, 20, 1);
+		Project proj_google = new Project("Google", LocalDate.of(2017, Month.MAY, 15), LocalDate.of(2017, Month.MAY, 20), 550, 20, 1);
+		Project proj_facebook = new Project("Facebook", LocalDate.of(2017, Month.MAY, 15), LocalDate.of(2017, Month.MAY, 20), 770, 20, 1);
 		
 		List<Project> projects = new ArrayList<Project>();
 		projects.add(proj_google); 
