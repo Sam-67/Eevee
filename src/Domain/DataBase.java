@@ -35,6 +35,7 @@ public class DataBase {
     {
     	List<Employee> employeeList = new ArrayList<Employee>();;
     	List<Project> projectList = new ArrayList<Project>();
+    	String dir  = System.getProperty("user.dir");
         // employe
         try{
             InputStream flux = new FileInputStream("./src/Ressources/Employe.txt");
