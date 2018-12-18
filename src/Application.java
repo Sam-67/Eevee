@@ -19,40 +19,6 @@ public class Application {
 		int choix = 1;
 		mainMenu(sc);
 
-		/*while (choix != 0) {
-			System.out.println("Que voulez-vous faire ?\n" + "\n1 : Verifier le planning" + "\n2 : Ajouter un projet"
-					+ "\n3 : Modifier l'efficience d'un projet" + "\n0 : Quitter\n");
-			
-			String choixString = sc.next();
-			try {
-				 choix = Integer.parseInt(choixString);
-			}
-			catch(Exception e) {
-				System.out.println("Mauvais format ou choix indisponible, veuillez choisir un des choix proposé");
-				continue;
-			}
-
-
-			switch (choix) {
-			case 1:
-				showPlanningMenu(sc);
-				break;
-			case 2:
-				addProject(sc);
-				break;
-			case 3:
-				showModifyEfficiencyMenu(sc);
-				break;
-			case 0:
-				System.out.println("Vous quittez l'ERP.\n");
-				break;
-			default:
-				System.out.println("Veuillez selectionner un des choix proposés.\n");
-				break;
-			}
-
-		}*/
-
 		sc.close();
 
 	}
