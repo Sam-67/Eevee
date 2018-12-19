@@ -17,73 +17,104 @@ public class Application {
 		displayBaseInformations();
 		Scanner sc = new Scanner(System.in);
 		int choix = 1;
-
-		while (choix != 0) {
-			System.out.println("Que voulez-vous faire ?\n" + "\n1 : Verifier le planning" + "\n2 : Ajouter un projet"
-					+ "\n3 : Modifier l'efficience d'un projet" + "\n0 : Quitter\n");
-
-			choix = sc.nextInt();
-
-			switch (choix) {
-			case 1:
-				showPlanningMenu(sc);
-				break;
-			case 2:
-				addProject(sc);
-				break;
-			case 3:
-				showModifyEfficiencyMenu(sc);
-				break;
-			case 0:
-				System.out.println("Vous quittez l'ERP.\n");
-				break;
-			default:
-				System.out.println("Veuillez selectionner un des choix proposés.\n");
-				break;
-			}
-
-		}
+		mainMenu(sc);
 
 		sc.close();
 
 	}
+	
+	
+	
+	public static void mainMenu(Scanner sc) {	
+		int choix = 0;
+		System.out.println("Que voulez-vous faire ?\n" + "\n1 : Verifier le planning" + "\n2 : Ajouter un projet"
+				+ "\n3 : Modifier l'efficience d'un projet" + "\n0 : Quitter\n");
+		
+		String choixString = sc.next();
+		try {
+			 choix = Integer.parseInt(choixString);
+		}
+		catch(Exception e) {
+			System.out.println("Mauvais format ou choix indisponible, veuillez choisir un des choix proposé");
+			mainMenu(sc);
+		}
+
+
+		switch (choix) {
+		case 1:
+			showPlanningMenu(sc);
+			break;
+		case 2:
+			addProject(sc);
+			break;
+		case 3:
+			showModifyEfficiencyMenu(sc);
+			break;
+		case 0:
+			System.out.println("Vous quittez l'ERP.\n");
+			break;
+		default:
+			System.out.println("Veuillez selectionner un des choix proposés.\n");
+			break;
+		}
+
+	}
+		
+
 
 	public static void showPlanningMenu(Scanner sc) {
 		System.out.println("Quels projets voulez-vous choisir pour vérifier le planning ?\n" + "\n1 : Un projet"
 				+ "\n2 : Tous les projets" + "\n9 : Retour" + "\n0 : Quitter");
-
-		int choix = sc.nextInt();
+		
+		String choixString = sc.next();
+		int choix = 0;
+		try {
+			  choix = Integer.parseInt(choixString);
+		}
+		catch(Exception e) {
+			System.out.println("Mauvais format, veuillez choisir un des choix proposés");
+			showPlanningMenu(sc);
+			
+		}
 
 		switch (choix) {
 		case 1:
-			System.out.println("Fonctionnalité non développée pour l'instant.\n");
-			// todo : checkPlanning(touslesprojet);
-			chooseProject("planning", sc);
-
+			ProjetPlanningController.getProjetPlanningControllerInstance().getAllProjectsFeasibility(DataBase.getDataBaseInstance().getEntreprise());
 			break;
 		case 2:
-			System.out.println("Fonctionnalité non développée pour l'instant.\n");
-			showPlanningMenu(sc);
+			ProjetPlanningController.getProjetPlanningControllerInstance().getAllProjectsFeasibility(DataBase.getDataBaseInstance().getEntreprise());
 			break;
 		case 9:
-			return;
+			mainMenu(sc);
 		case 0:
-			quit();
+			quit(sc);
 			break;
 		default:
-			System.out.println("Veuillez choisir un des choix proposé !\n");
+			System.out.println("Veuillez choisir un des choix proposés !\n");
 			showPlanningMenu(sc);
 			break;
 		}
 
 	}
+	
+	
 
 	public static void showModifyEfficiencyMenu(Scanner sc) {
 		System.out.println("Quelle efficience voulez-vous changer? \n" + "\n1 : Celle d'un projet"
 				+ "\n2 : Celle de tous les projets" + "\n9 : Retour" + "\n0 : Quitter");
 
-		sc = new Scanner(System.in);
-		int choix = sc.nextInt();
+		
+		String choixString = sc.next();
+		int choix = 0;
+		try {
+			  choix = Integer.parseInt(choixString);
+		}
+		catch(Exception e) {
+			System.out.println("Mauvais format, veuillez choisir un des choix proposés");
+			showModifyEfficiencyMenu(sc);
+			
+		}
+		
 
 		switch (choix) {
 		case 1:
@@ -93,17 +124,18 @@ public class Application {
 			allProjectEfficiencyModification(sc);
 			break;
 		case 9:
-			return;
+			mainMenu(sc);
 		case 0:
-			quit();
+			quit(sc);
 			break;
 		default:
-			System.out.println("Veuillez choisir un des choix proposé.\n");
+			System.out.println("Veuillez choisir un des choix proposés.\n");
 			showModifyEfficiencyMenu(sc);
 			break;
 		}
 
 	}
+	
 
 	public static void chooseProject(String action, Scanner sc) {
 		// To do : lister la liste des projets
@@ -122,18 +154,26 @@ public class Application {
 		System.out.println("9 : Retour");
 		System.out.println("0 : quitter");
 
-		int choix = sc.nextInt();
+		String choixString = sc.next();
+		int choix = 0;
+		try {
+			  choix = Integer.parseInt(choixString);
+		}
+		catch(Exception e) {
+			System.out.println("Mauvais format ou choix indisponible, veuillez choisir un des choix proposés");
+			showPlanningMenu(sc);
+			
+		}
 
 		if (choix < ProjectList.size()) {
 			if (action == "planning") {
-				System.out.println(ProjetPlanningController.getProjetPlanningControllerInstance().getProjectFeasibility(DataBase.getDataBaseInstance().getEntreprise(), ProjectList.get(choix)));
+				System.out.println("Le projet va être realise dans les temps !");
+				// todo : checkPlanning(projet);
 			} else if (action == "efficience") {
-				System.out.println("Entrez une nouvelle efficience ");
-				Float efficiency = sc.nextFloat();
-				System.out.println("Le projet a désormais une efficience de " + efficiency);
-				// todo : changerEfficience(projet);
+            	Project project = ProjectList.get(choix-1);
+            	efficiencyModification(project, sc);
 			} else {
-				System.out.println("Veuillez choisir une des action proposé !");
+				System.out.println("Veuillez choisir une des actions proposées !");
 				chooseProject(action, sc);
 			}
 		} else if (choix == 9) {
@@ -143,28 +183,42 @@ public class Application {
 				showModifyEfficiencyMenu(sc);
 			}
 		} else if (choix == 0) {
-			quit();
+			quit(sc);
 		} else {
-			System.out.println("Veuillez choisir une des action proposé !");
+			System.out.println("Veuillez choisir une des actions proposées !");
 		}
 
 	}
 
 	public static void allProjectEfficiencyModification(Scanner sc) {
 		System.out.println("Entrez une efficience ");
-		Float efficiency = sc.nextFloat();
-		DataBase.getDataBaseInstance().getEntreprise().getProjects().stream()
+		sc.nextLine();
+		String str = sc.nextLine();
+		try {
+			Float efficiency= Float.parseFloat(str);
+			DataBase.getDataBaseInstance().getEntreprise().getProjects().stream()
 				.forEach((x) -> x.setEfficiency(efficiency));
-		System.out.println("Efficience modifiée : ");
-		displayProjects();
+			System.out.println("Efficience modifiée : ");
+			displayProjects();
+		}catch (NumberFormatException nfe) {
+			System.out.println("Ce n'est pas un nombre décimal");
+		}
+
+		mainMenu(sc);
 	}
 
 	public static void efficiencyModification(Project project, Scanner sc) {
-		System.out.println("Entrez en efficience ");
-		Float efficiency = sc.nextFloat();
-		project.setEfficiency(efficiency);
-		System.out.println("La nouvelle efficience du projet est " + project.getEfficiency());
-
+		System.out.println("Entrez une efficience ");
+		sc.nextLine();
+		String str = sc.nextLine();
+			try {
+				Float efficiency= Float.parseFloat(str);
+				project.setEfficiency(efficiency);
+				System.out.println("La nouvelle efficience du projet est " + project.getEfficiency());
+				displayProjects();
+			} catch (NumberFormatException nfe) {
+				System.out.println("Ce n'est pas un nombre décimal");
+			}
 	}
 
 	public static void addProject(Scanner sc) {
@@ -179,7 +233,7 @@ public class Application {
 		LocalDate dateFin = askDate("fin", sc);
 
 		while (dateFin.compareTo(dateDebut) < 0) {
-			System.out.println("La date de debut dois etre inférieur a la date de fin!");
+			System.out.println("La date de debut dois être inférieur a la date de fin!");
 
 			System.out.println("Entrez la date de début du nouveau projet");
 			dateDebut = askDate("debut", sc);
@@ -188,7 +242,7 @@ public class Application {
 			dateFin = askDate("fin", sc);
 		}
 
-		System.out.println("Entrez le nombre de jour de developpement");
+		System.out.println("Entrez le nombre de jour de développement");
 		int nbJourDeDev = sc.nextInt();
 
 		System.out.println("Entrez le nombre de jour de gestion de projet");
@@ -197,69 +251,84 @@ public class Application {
 		System.out.println("Entrez l'efficience du nouveau projet");
 		float efficience = sc.nextFloat();
 
-		Project newProject = new Project(name, dateDebut, dateFin, nbJourDeDev, nbJourGestion, efficience);
+		Project newProject = new Project(name, dateDebut, dateFin, dateDebut, dateFin, dateFin, nbJourDeDev, nbJourGestion, efficience);
 
 		DataBase.instance.addProject(newProject);
 
 		System.out.println("Projet ajouté avec succés : ");
 
 		displayBaseInformations();
+		mainMenu(sc);
 
 	}
 
 	public static LocalDate askDate(String parameter, Scanner sc) {
 		Boolean isNotOk = true;
-		int day = 0;
-		int month = 0;
-		int year = 0;
+		String day = "";
+		String month = "";
+		String year = "";
 
 		while (isNotOk) {
 			System.out.println("Entrez un jour valide.");
-			day = sc.nextInt();
+			day = sc.next();
 			isNotOk = (checkDate(day, "day")) ? false : true;
 		}
 		isNotOk = true;
 
 		while (isNotOk) {
 			System.out.println("Entrez un mois valide.");
-			month = sc.nextInt();
+			month = sc.next();
 			isNotOk = (checkDate(month, "month")) ? false : true;
 		}
 
 		isNotOk = true;
 
 		while (isNotOk) {
-			System.out.println("Entrez une annee valide.");
-			year = sc.nextInt();
+			System.out.println("Entrez une année valide.");
+			year = sc.next();
 			isNotOk = (checkDate(year, "year" + parameter)) ? false : true;
 		}
+		
+		int y = Integer.parseInt(year);
+		int m = Integer.parseInt(month);
+		int d = Integer.parseInt(day);
 
-		LocalDate date = LocalDate.of(year, month, day);
+		LocalDate date = LocalDate.of(y, m, d);
 
 		return date;
 	}
 
-	public static void quit() {
+	public static void quit(Scanner sc) {
 		System.out.println("A bientot !" + "Sarah MESBAH, Charly MRAZECK, Ethan WENDEL, Tom WENDEL"
 				+ "Projet réalisé dans le cadre du cours d'ERP 3A. CNAM 2016-2018.");
+		sc.close();
 		System.exit(1);
 	}
 
-	public static boolean checkDate(int nb, String parameter) {
+	public static boolean checkDate(String nb, String parameter) {
 		Boolean isOk = false;
+
+		int nombre = 0;
+		try {
+			  nombre = Integer.parseInt(nb);
+		}
+		catch(Exception e) {
+			return isOk = false; 
+			
+		}
 
 		switch (parameter) {
 		case "day":
-			isOk = (nb != 0 && nb < 32) ? true : false;
+			isOk = (nombre != 0 && nombre < 32) ? true : false;
 			break;
 		case "month":
-			isOk = (nb != 0 && nb < 13) ? true : false;
+			isOk = (nombre != 0 && nombre < 13) ? true : false;
 			break;
 		case "yeardebut":
-			isOk = (nb != 0 && nb < 2019) ? true : false;
+			isOk = (nombre != 0) ? true : false;
 			break;
 		case "yearfin":
-			isOk = (nb != 0 && nb >= 2018) ? true : false;
+			isOk = (nombre != 0) ? true : false;
 			break;
 		}
 		return isOk;
@@ -274,11 +343,11 @@ public class Application {
 
 	public static void displayProjects() {
 		DataBase.getDataBaseInstance().getEntreprise().getProjects().stream().forEach(System.out::println);
-		;
+		
 	}
 
 	public static void displayEmployees() {
 		DataBase.getDataBaseInstance().getEntreprise().getEmployees().stream().forEach(System.out::println);
-		;
+		
 	}
 }
