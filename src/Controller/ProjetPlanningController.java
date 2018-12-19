@@ -109,14 +109,14 @@ public class ProjetPlanningController {
 		while (!simulateProjectFeasibility(entreprise, project).equals(resultNeeded)) {
 			numberOfEmpAdded++;
 			Employee emp_test = new Employee("Employé fictif", "Employé fictif", role,
-					project.getDateStartMana().minusMonths(3));
+					project.getDateStartMana().minusMonths(4));
 			entreprise.addEmployee(emp_test);
 		}
 
 		return "\nLe nombre de " + role.toString() + " manquants est de " + numberOfEmpAdded + "."
 				+ "\nIl faudra embaucher le " + project.getDateStartMana().format(datetimeformatter)
-				+ " (sans compter les 3 mois)" + " et le "
-				+ project.getDateStartMana().minusMonths(3).format(datetimeformatter) + " (en comptant les 3 mois).";
+				+ " (sans compter les 4 mois de processus d'embauche)" + " et le "
+				+ project.getDateStartMana().minusMonths(4).format(datetimeformatter) + " (en comptant les 4 mois de processus d'embauche).";
 	}
 
 	public String getAllProjectsFeasibility(Entreprise e) {
