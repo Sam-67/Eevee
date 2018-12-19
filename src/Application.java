@@ -186,6 +186,7 @@ public class Application {
 			quit(sc);
 		} else {
 			System.out.println("Veuillez choisir une des actions proposées !");
+			chooseProject(action, sc);
 		}
 
 	}
