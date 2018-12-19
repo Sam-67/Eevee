@@ -79,10 +79,13 @@ public class Application {
 
 		switch (choix) {
 		case 1:
-			ProjetPlanningController.getProjetPlanningControllerInstance().getAllProjectsFeasibility(DataBase.getDataBaseInstance().getEntreprise());
+			chooseProject("planning", sc);
 			break;
 		case 2:
-			ProjetPlanningController.getProjetPlanningControllerInstance().getAllProjectsFeasibility(DataBase.getDataBaseInstance().getEntreprise());
+			System.out.println("\n[  RAPPORT ]\n");
+			System.out.println(ProjetPlanningController.getProjetPlanningControllerInstance().getAllProjectsFeasibility(DataBase.getDataBaseInstance().getEntreprise()));
+			System.out.println("\n[   ----   ]\n");
+			showPlanningMenu(sc);
 			break;
 		case 9:
 			mainMenu(sc);
@@ -167,8 +170,10 @@ public class Application {
 
 		if (choix < ProjectList.size()) {
 			if (action == "planning") {
-				System.out.println("Le projet va être realise dans les temps !");
-				// todo : checkPlanning(projet);
+				System.out.println("\n[  RAPPORT ]\n");
+				System.out.println(ProjetPlanningController.getProjetPlanningControllerInstance().getProjectFeasibility(DataBase.getDataBaseInstance().getEntreprise(), ProjectList.get(choix)));
+				System.out.println("\n[   ----   ]\n");
+				showPlanningMenu(sc);
 			} else if (action == "efficience") {
             	Project project = ProjectList.get(choix-1);
             	efficiencyModification(project, sc);

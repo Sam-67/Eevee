@@ -70,8 +70,8 @@ public class ProjetPlanningController {
 		String resultToDisplay = new String();
 
 		if (resultProjectFeasibility.containsKey(RemainingDaysType.ACHIEVABLE_PROJECT)) {
-			resultToDisplay = "Le projet " + project.getName() + " peut être réalisable.";
-
+			resultToDisplay = "\nLe projet " + project.getName() + " peut être réalisable dans les temps.\n"
+					+ "Il commencera son dev le : "+project.getDateStartDev()+" et sa gestion de projet le : "+project.getDateStartMana()+" pour etre livré le "+project.getDateLivraison() + "\n";
 		} else if (resultProjectFeasibility.containsKey(RemainingDaysType.PROJECT_MANAGEMENT)) {
 
 			resultToDisplay = "Le projet " + project.getName()
@@ -116,7 +116,7 @@ public class ProjetPlanningController {
 		return "\nLe nombre de " + role.toString() + " manquants est de " + numberOfEmpAdded + "."
 				+ "\nIl faudra embaucher le " + project.getDateStartMana().format(datetimeformatter)
 				+ " (sans compter les 3 mois)" + " et le "
-				+ project.getDateStartMana().minusMonths(3).format(datetimeformatter) + " (en comptant les 3 mois).";
+				+ project.getDateStartMana().minusMonths(3).format(datetimeformatter) + " (en comptant les 3 mois).\n\n";
 	}
 
 	public String getAllProjectsFeasibility(Entreprise e) {
