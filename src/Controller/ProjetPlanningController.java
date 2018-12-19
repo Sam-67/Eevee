@@ -70,8 +70,8 @@ public class ProjetPlanningController {
 		String resultToDisplay = new String();
 
 		if (resultProjectFeasibility.containsKey(RemainingDaysType.ACHIEVABLE_PROJECT)) {
-			resultToDisplay = "\nLe projet " + project.getName() + " peut être réalisable dans les temps.\n"
-					+ "Il commencera son dev le : "+project.getDateStartDev()+" et sa gestion de projet le : "+project.getDateStartMana()+" pour etre livré le "+project.getDateLivraison() + "\n";
+			resultToDisplay = "Le projet " + project.getName() + " peut être réalisable.";
+
 		} else if (resultProjectFeasibility.containsKey(RemainingDaysType.PROJECT_MANAGEMENT)) {
 
 			resultToDisplay = "Le projet " + project.getName()
@@ -109,14 +109,14 @@ public class ProjetPlanningController {
 		while (!simulateProjectFeasibility(entreprise, project).equals(resultNeeded)) {
 			numberOfEmpAdded++;
 			Employee emp_test = new Employee("Employé fictif", "Employé fictif", role,
-					project.getDateStartMana().minusMonths(3));
+					project.getDateStartMana().minusMonths(4));
 			entreprise.addEmployee(emp_test);
 		}
 
 		return "\nLe nombre de " + role.toString() + " manquants est de " + numberOfEmpAdded + "."
 				+ "\nIl faudra embaucher le " + project.getDateStartMana().format(datetimeformatter)
-				+ " (sans compter les 3 mois)" + " et le "
-				+ project.getDateStartMana().minusMonths(3).format(datetimeformatter) + " (en comptant les 3 mois).\n\n";
+				+ " (sans compter les 4 mois de processus d'embauche)" + " et le "
+				+ project.getDateStartMana().minusMonths(4).format(datetimeformatter) + " (en comptant les 4 mois de processus d'embauche).";
 	}
 
 	public String getAllProjectsFeasibility(Entreprise e) {
