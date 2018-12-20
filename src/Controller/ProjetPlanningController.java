@@ -52,6 +52,9 @@ public class ProjetPlanningController {
 				.round((getWorkloadPerProjectManagerInDays(project.getNbRemainingManagementDay(),
 						entreprise.getNumbersOfManagers()) / project.getEfficiency()));
 
+		System.out.println("Le nombre de jour restant est : "+workDaysUntil);
+		System.out.println("La charge de développement par développeur est de : "+workloadPerDevelopmentInDays);
+		System.out.println("La charge de développement par chef de projet est de : "+workloadPerProjectManagerInDays);
 		if (workloadPerDevelopmentInDays > workDaysUntil) {
 			remainingDays.put(RemainingDaysType.DEVELOPMENT, workloadPerDevelopmentInDays - workDaysUntil);
 		} else if (workloadPerProjectManagerInDays > workDaysUntil) {
@@ -60,7 +63,7 @@ public class ProjetPlanningController {
 			remainingDays.put(RemainingDaysType.ACHIEVABLE_PROJECT, 0);
 		}
 		int numberOfWeeksBetweenDev = (int) ChronoUnit.WEEKS.between(project.getDateStartDev(), project.getDateStartDev().plusDays(workloadPerDevelopmentInDays));
-		int numberOfWeeksBetweenMana = (int) ChronoUnit.WEEKS.between(project.getDateStartDev(), project.getDateStartDev().plusDays(workloadPerDevelopmentInDays));
+		int numberOfWeeksBetweenMana = (int) ChronoUnit.WEEKS.between(project.getDateStartMana(), project.getDateStartMana().plusDays(workloadPerProjectManagerInDays));
 		
 		project.setDateEndDev(project.getDateStartDev().plusDays(workloadPerDevelopmentInDays + (numberOfWeeksBetweenDev*2)));
 		project.setDateEndMana(project.getDateStartMana().plusDays(workloadPerProjectManagerInDays + (numberOfWeeksBetweenMana*2)));
@@ -80,6 +83,8 @@ public class ProjetPlanningController {
 				(getWorkloadPerDevelopmentInDays(project.getNbRemainingDevDay(), entreprise.getNumbersOfDeveloppers())
 						/ project.getEfficiency()));
 	
+		System.out.println("Développeur ajouté, la charge de développement par développeur est maintenant de : "+workloadPerDevelopmentInDays);
+		
 		if (workloadPerDevelopmentInDays > workDaysUntil) {
 			remainingDays.put(RemainingDaysType.DEVELOPMENT, workloadPerDevelopmentInDays - workDaysUntil);
 		}else {
