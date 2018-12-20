@@ -59,10 +59,11 @@ public class ProjetPlanningController {
 		} else {
 			remainingDays.put(RemainingDaysType.ACHIEVABLE_PROJECT, 0);
 		}
-		int numberOfWeeksBetween = (int) ChronoUnit.WEEKS.between(project.getDateStartDev(), project.getDateStartDev().plusDays(workloadPerDevelopmentInDays));
+		int numberOfWeeksBetweenDev = (int) ChronoUnit.WEEKS.between(project.getDateStartDev(), project.getDateStartDev().plusDays(workloadPerDevelopmentInDays));
+		int numberOfWeeksBetweenMana = (int) ChronoUnit.WEEKS.between(project.getDateStartDev(), project.getDateStartDev().plusDays(workloadPerDevelopmentInDays));
 		
-		project.setDateEndDev(project.getDateStartDev().plusDays(workloadPerProjectManagerInDays + (numberOfWeeksBetween*2)));
-		project.setDateEndMana(project.getDateStartMana().plusDays(workloadPerProjectManagerInDays + (numberOfWeeksBetween*2)));
+		project.setDateEndDev(project.getDateStartDev().plusDays(workloadPerDevelopmentInDays + (numberOfWeeksBetweenDev*2)));
+		project.setDateEndMana(project.getDateStartMana().plusDays(workloadPerProjectManagerInDays + (numberOfWeeksBetweenMana*2)));
 
 		return remainingDays;
 	}
@@ -177,6 +178,23 @@ public class ProjetPlanningController {
 				Employee emp_test = new Employee("Employé fictif", "Employé fictif", role,
 						project.getDateStartMana().minusMonths(4));
 				entreprise.addEmployee(emp_test);
+				
+				
+				int workloadPerDevelopmentInDays = Math.round(
+						(getWorkloadPerDevelopmentInDays(project.getNbRemainingDevDay(), entreprise.getNumbersOfDeveloppers())
+								/ project.getEfficiency()));
+				int workloadPerProjectManagerInDays = Math
+						.round((getWorkloadPerProjectManagerInDays(project.getNbRemainingManagementDay(),
+								entreprise.getNumbersOfManagers()) / project.getEfficiency()));
+				
+				int numberOfWeeksBetweenDev = (int) ChronoUnit.WEEKS.between(project.getDateStartDev(), project.getDateStartDev().plusDays(workloadPerDevelopmentInDays));
+				int numberOfWeeksBetweenMana = (int) ChronoUnit.WEEKS.between(project.getDateStartDev(), project.getDateStartDev().plusDays(workloadPerDevelopmentInDays));
+				
+				
+				project.setDateEndDev(project.getDateStartDev().plusDays(workloadPerDevelopmentInDays + (numberOfWeeksBetweenDev*2)));
+				project.setDateEndMana(project.getDateStartMana().plusDays(workloadPerProjectManagerInDays + (numberOfWeeksBetweenMana*2)));
+
+				
 			}
 
 			return "\nLe nombre de " + role.toString() + " manquants est de " + numberOfEmpAdded + "."
