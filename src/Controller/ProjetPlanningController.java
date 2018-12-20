@@ -5,7 +5,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import Domain.EmployeRole;
 import Domain.Employee;
@@ -126,7 +128,7 @@ public class ProjetPlanningController {
 	}
 
 	public Entreprise copyEntreprise(Entreprise e) {
-		Entreprise entreprise_copy = new Entreprise(e.getName(), e.getEmployees(), e.getProjects());
+		Entreprise entreprise_copy = new Entreprise(e.getName(), clean_employees(e), e.getProjects());
 		return entreprise_copy;
 	}
 
@@ -198,8 +200,8 @@ public class ProjetPlanningController {
 
 				int numberOfWeeksBetweenDev = (int) ChronoUnit.WEEKS.between(project.getDateStartDev(),
 						project.getDateStartDev().plusDays(workloadPerDevelopmentInDays));
-				int numberOfWeeksBetweenMana = (int) ChronoUnit.WEEKS.between(project.getDateStartDev(),
-						project.getDateStartDev().plusDays(workloadPerDevelopmentInDays));
+				int numberOfWeeksBetweenMana = (int) ChronoUnit.WEEKS.between(project.getDateStartMana(),
+						project.getDateStartMana().plusDays(workloadPerProjectManagerInDays));
 
 				project.setDateEndDev(project.getDateStartDev()
 						.plusDays(workloadPerDevelopmentInDays + (numberOfWeeksBetweenDev * 2)));
@@ -266,5 +268,13 @@ public class ProjetPlanningController {
 
 	public int getWorkloadPerProjectManagerInDays(int nbProjectManagementDays, int nbProjectManager) {
 		return (nbProjectManagementDays / nbProjectManager);
+	}
+	
+	public List<Employee> clean_employees(Entreprise e) {
+		List<Employee> emp = e.getEmployees().stream().filter(
+				ep -> !(ep.getLastName().equals("Employé fictif")))
+				.collect(Collectors.toList());
+		return emp;
+		
 	}
 }

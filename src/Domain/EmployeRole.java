@@ -23,5 +23,5 @@ public enum EmployeRole {
 		public String toString() {
 			return "manager technique";
 		}
-	}
+	},
 }
