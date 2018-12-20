@@ -35,9 +35,9 @@ public class ProjetPlanningController {
 
 	public HashMap<RemainingDaysType, Integer> simulateProjectFeasibility(Entreprise entreprise, Project project) {
 		HashMap<RemainingDaysType, Integer> remainingDays = new HashMap<RemainingDaysType, Integer>();
-		System.out.println("Projet etudie : "+project.getName());
-		System.out.println("Il commence son dev le "+project.getDateStartDev());
-		System.out.println("Il commence son mana le "+project.getDateStartMana());
+		System.out.println("Projet etudie : " + project.getName());
+		System.out.println("Il commence son dev le " + project.getDateStartDev());
+		System.out.println("Il commence son mana le " + project.getDateStartMana());
 
 		int workDaysUntil = getWorkDaysUntil(getMostRecentDate(project.getDateStartDev(), project.getDateStartMana()),
 				project.getDateLivraison());
@@ -52,9 +52,9 @@ public class ProjetPlanningController {
 				.round((getWorkloadPerProjectManagerInDays(project.getNbRemainingManagementDay(),
 						entreprise.getNumbersOfManagers()) / project.getEfficiency()));
 
-		System.out.println("Le nombre de jour restant est : "+workDaysUntil);
-		System.out.println("La charge de développement par développeur est de : "+workloadPerDevelopmentInDays);
-		System.out.println("La charge de développement par chef de projet est de : "+workloadPerProjectManagerInDays);
+		System.out.println("Le nombre de jour restant est : " + workDaysUntil);
+		System.out.println("La charge de développement par développeur est de : " + workloadPerDevelopmentInDays);
+		System.out.println("La charge de développement par chef de projet est de : " + workloadPerProjectManagerInDays);
 		if (workloadPerDevelopmentInDays > workDaysUntil) {
 			remainingDays.put(RemainingDaysType.DEVELOPMENT, workloadPerDevelopmentInDays - workDaysUntil);
 		} else if (workloadPerProjectManagerInDays > workDaysUntil) {
@@ -62,15 +62,19 @@ public class ProjetPlanningController {
 		} else {
 			remainingDays.put(RemainingDaysType.ACHIEVABLE_PROJECT, 0);
 		}
-		int numberOfWeeksBetweenDev = (int) ChronoUnit.WEEKS.between(project.getDateStartDev(), project.getDateStartDev().plusDays(workloadPerDevelopmentInDays));
-		int numberOfWeeksBetweenMana = (int) ChronoUnit.WEEKS.between(project.getDateStartMana(), project.getDateStartMana().plusDays(workloadPerProjectManagerInDays));
-		
-		project.setDateEndDev(project.getDateStartDev().plusDays(workloadPerDevelopmentInDays + (numberOfWeeksBetweenDev*2)));
-		project.setDateEndMana(project.getDateStartMana().plusDays(workloadPerProjectManagerInDays + (numberOfWeeksBetweenMana*2)));
+		int numberOfWeeksBetweenDev = (int) ChronoUnit.WEEKS.between(project.getDateStartDev(),
+				project.getDateStartDev().plusDays(workloadPerDevelopmentInDays));
+		int numberOfWeeksBetweenMana = (int) ChronoUnit.WEEKS.between(project.getDateStartMana(),
+				project.getDateStartMana().plusDays(workloadPerProjectManagerInDays));
+
+		project.setDateEndDev(
+				project.getDateStartDev().plusDays(workloadPerDevelopmentInDays + (numberOfWeeksBetweenDev * 2)));
+		project.setDateEndMana(
+				project.getDateStartMana().plusDays(workloadPerProjectManagerInDays + (numberOfWeeksBetweenMana * 2)));
 
 		return remainingDays;
 	}
-	
+
 	public HashMap<RemainingDaysType, Integer> simulateProjectFeasibilityDev(Entreprise entreprise, Project project) {
 		HashMap<RemainingDaysType, Integer> remainingDays = new HashMap<RemainingDaysType, Integer>();
 
@@ -82,21 +86,23 @@ public class ProjetPlanningController {
 		workloadPerDevelopmentInDays = Math.round(
 				(getWorkloadPerDevelopmentInDays(project.getNbRemainingDevDay(), entreprise.getNumbersOfDeveloppers())
 						/ project.getEfficiency()));
-	
-		System.out.println("Développeur ajouté, la charge de développement par développeur est maintenant de : "+workloadPerDevelopmentInDays);
-		
+
+		System.out.println("Développeur ajouté, la charge de développement par développeur est maintenant de : "
+				+ workloadPerDevelopmentInDays);
+
 		if (workloadPerDevelopmentInDays > workDaysUntil) {
 			remainingDays.put(RemainingDaysType.DEVELOPMENT, workloadPerDevelopmentInDays - workDaysUntil);
-		}else {
+		} else {
 			remainingDays.put(RemainingDaysType.ACHIEVABLE_PROJECT, 0);
 		}
 
 		project.setDateEndDev(project.getDateStartDev().plusDays(workloadPerDevelopmentInDays));
-	
+
 		return remainingDays;
 	}
-	
-	public HashMap<RemainingDaysType, Integer> simulateProjectFeasibilityManagement(Entreprise entreprise, Project project) {
+
+	public HashMap<RemainingDaysType, Integer> simulateProjectFeasibilityManagement(Entreprise entreprise,
+			Project project) {
 		HashMap<RemainingDaysType, Integer> remainingDays = new HashMap<RemainingDaysType, Integer>();
 
 		int workDaysUntil = getWorkDaysUntil(getMostRecentDate(project.getDateStartDev(), project.getDateStartMana()),
@@ -118,8 +124,7 @@ public class ProjetPlanningController {
 
 		return remainingDays;
 	}
-	
-	
+
 	public Entreprise copyEntreprise(Entreprise e) {
 		Entreprise entreprise_copy = new Entreprise(e.getName(), e.getEmployees(), e.getProjects());
 		return entreprise_copy;
@@ -134,7 +139,7 @@ public class ProjetPlanningController {
 		if (resultProjectFeasibility.containsKey(RemainingDaysType.ACHIEVABLE_PROJECT)) {
 			resultToDisplay = "\nLe projet " + project.getName() + " peut être réalisable.";
 
-		} 
+		}
 		if (resultProjectFeasibility.containsKey(RemainingDaysType.PROJECT_MANAGEMENT)) {
 
 			resultToDisplay += "\nLe projet " + project.getName()
@@ -146,7 +151,7 @@ public class ProjetPlanningController {
 			resultToDisplay += resultToDisplay + " "
 					+ ProjectFeasibilityWithMoreEmp(entreprise_copy, project, EmployeRole.PROJECT_MANAGER);
 
-		} 
+		}
 		if (resultProjectFeasibility.containsKey(RemainingDaysType.DEVELOPMENT)) {
 
 			resultToDisplay += "\nLe projet " + project.getName()
@@ -157,9 +162,9 @@ public class ProjetPlanningController {
 
 			resultToDisplay += ProjectFeasibilityWithMoreEmp(entreprise_copy, project, EmployeRole.DEVELLOPER);
 
-		} 
+		}
 
-		if(!(resultToDisplay.length() > 0)){
+		if (!(resultToDisplay.length() > 0)) {
 			resultToDisplay = "Erreur dans le projet !";
 		}
 
@@ -171,45 +176,47 @@ public class ProjetPlanningController {
 		HashMap<RemainingDaysType, Integer> resultNeeded = new HashMap<RemainingDaysType, Integer>();
 		HashMap<RemainingDaysType, Integer> resultObtained = new HashMap<RemainingDaysType, Integer>();
 		resultNeeded.put(RemainingDaysType.ACHIEVABLE_PROJECT, 0);
-		
-		if(role.equals(EmployeRole.DEVELLOPER)) {
-			while (!(resultObtained=simulateProjectFeasibilityDev(entreprise, project)).equals(resultNeeded)) {
-				if(resultObtained.containsKey(RemainingDaysType.DEVELOPMENT)) {
+
+		if (role.equals(EmployeRole.DEVELLOPER)) {
+			while (!(resultObtained = simulateProjectFeasibilityDev(entreprise, project)).equals(resultNeeded)) {
+				if (resultObtained.containsKey(RemainingDaysType.DEVELOPMENT)) {
 					role = EmployeRole.DEVELLOPER;
-				}else if(resultObtained.containsKey(RemainingDaysType.PROJECT_MANAGEMENT)){
+				} else if (resultObtained.containsKey(RemainingDaysType.PROJECT_MANAGEMENT)) {
 					role = EmployeRole.PROJECT_MANAGER;
 				}
 				numberOfEmpAdded++;
 				Employee emp_test = new Employee("Employé fictif", "Employé fictif", role,
 						project.getDateStartMana().minusMonths(4));
 				entreprise.addEmployee(emp_test);
-				
-				
-				int workloadPerDevelopmentInDays = Math.round(
-						(getWorkloadPerDevelopmentInDays(project.getNbRemainingDevDay(), entreprise.getNumbersOfDeveloppers())
-								/ project.getEfficiency()));
+
+				int workloadPerDevelopmentInDays = Math
+						.round((getWorkloadPerDevelopmentInDays(project.getNbRemainingDevDay(),
+								entreprise.getNumbersOfDeveloppers()) / project.getEfficiency()));
 				int workloadPerProjectManagerInDays = Math
 						.round((getWorkloadPerProjectManagerInDays(project.getNbRemainingManagementDay(),
 								entreprise.getNumbersOfManagers()) / project.getEfficiency()));
-				
-				int numberOfWeeksBetweenDev = (int) ChronoUnit.WEEKS.between(project.getDateStartDev(), project.getDateStartDev().plusDays(workloadPerDevelopmentInDays));
-				int numberOfWeeksBetweenMana = (int) ChronoUnit.WEEKS.between(project.getDateStartDev(), project.getDateStartDev().plusDays(workloadPerDevelopmentInDays));
-				
-				
-				project.setDateEndDev(project.getDateStartDev().plusDays(workloadPerDevelopmentInDays + (numberOfWeeksBetweenDev*2)));
-				project.setDateEndMana(project.getDateStartMana().plusDays(workloadPerProjectManagerInDays + (numberOfWeeksBetweenMana*2)));
 
-				
+				int numberOfWeeksBetweenDev = (int) ChronoUnit.WEEKS.between(project.getDateStartDev(),
+						project.getDateStartDev().plusDays(workloadPerDevelopmentInDays));
+				int numberOfWeeksBetweenMana = (int) ChronoUnit.WEEKS.between(project.getDateStartDev(),
+						project.getDateStartDev().plusDays(workloadPerDevelopmentInDays));
+
+				project.setDateEndDev(project.getDateStartDev()
+						.plusDays(workloadPerDevelopmentInDays + (numberOfWeeksBetweenDev * 2)));
+				project.setDateEndMana(project.getDateStartMana()
+						.plusDays(workloadPerProjectManagerInDays + (numberOfWeeksBetweenMana * 2)));
+
 			}
 
 			return "\nLe nombre de " + role.toString() + " manquants est de " + numberOfEmpAdded + "."
 					+ "\nIl faudra embaucher le " + project.getDateStartMana().format(datetimeformatter)
 					+ " (sans compter les 4 mois de processus d'embauche)" + " et le "
-					+ project.getDateStartMana().minusMonths(4).format(datetimeformatter) + " (en comptant les 4 mois de processus d'embauche).";
+					+ project.getDateStartMana().minusMonths(4).format(datetimeformatter)
+					+ " (en comptant les 4 mois de processus d'embauche).";
 		}
-	
-		if(role.equals(EmployeRole.PROJECT_MANAGER)) {
-			while (!(resultObtained=simulateProjectFeasibilityManagement(entreprise, project)).equals(resultNeeded)) {
+
+		if (role.equals(EmployeRole.PROJECT_MANAGER)) {
+			while (!(resultObtained = simulateProjectFeasibilityManagement(entreprise, project)).equals(resultNeeded)) {
 				numberOfEmpAdded++;
 				Employee emp_test = new Employee("Employé fictif", "Employé fictif", role,
 						project.getDateStartMana().minusMonths(4));
@@ -218,11 +225,12 @@ public class ProjetPlanningController {
 				return "\nLe nombre de " + role.toString() + " manquants est de " + numberOfEmpAdded + "."
 						+ "\nIl faudra embaucher le " + project.getDateStartMana().format(datetimeformatter)
 						+ " (sans compter les 4 mois de processus d'embauche)" + " et le "
-						+ project.getDateStartMana().minusMonths(4).format(datetimeformatter) + " (en comptant les 4 mois de processus d'embauche).";
+						+ project.getDateStartMana().minusMonths(4).format(datetimeformatter)
+						+ " (en comptant les 4 mois de processus d'embauche).";
 			}
 
 		}
-		
+
 		return "";
 
 	}
